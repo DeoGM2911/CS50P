@@ -20,8 +20,7 @@ def validate(ip: str) -> bool:
     ipv4 = re.search(r"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$", ip)
     if ipv4 is None:
         return False
-    nums = ipv4.group(0).split(".")
-    for num in nums:
+    for num in ipv4.group(0).split("."):
         if int(num) > 255 or int(num) < 0:
             return False
     return True
