@@ -1,21 +1,27 @@
+# We can use the while loop to reprompt 
 while True:
-    fuel_remained = input('Fraction: ')
     # format: x/y
-    nums = fuel_remained.split('/')
+    nums = input('Fraction: ').split('/')
     # re-prompt the user for a fraction
     try:
         x = int(nums[0])
         y = int(nums[1])
-        if (x > y) or (y == 0):  # Check for appropriate fraction
+        if x > y:  # Check for appropriate fraction
+            print("Not a valid fraction! (Larger than 1)")
             continue
-        else:  # if the input is valid then break out of the 'prompt' loop
+        percent = (x / y) * 100
+        if percent <= 1:  # Empty
+            print('E')
+            break
+        elif percent >= 99:  # Full
+            print('F')
+            break
+        else:
+            print(f'{int(percent)}%')
             break
     except ValueError:  # if x or y aren't integer then re-prompt
+        print("x or y is not an integer!")
         continue
-percent = (x / y) * 100
-if percent <= 1:  # Empty
-    print('E')
-elif percent >= 99:  # Full
-    print('F')
-else:
-    print(f'{int(percent)}%')
+    except ZeroDivisionError:
+        print("The denominator is 0!")
+        continue

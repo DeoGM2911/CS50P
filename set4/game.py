@@ -11,6 +11,7 @@ while True:
     except ValueError:
         continue
 number = rd.randrange(1, n)
+
 while True:
     while True:
         _guess = input("Guess: ")

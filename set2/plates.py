@@ -68,7 +68,6 @@ def is_valid(s: str):
                     return False
                 elif (s[-3] in numbers) and s[-4] == '0':
                     return False
-
     return True
 
 

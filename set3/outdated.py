@@ -54,6 +54,7 @@ def check_for_date(date: str) -> bool:
     return False
 
 
+# The while loop is for re-prompting the user. We 
 while True:
     USA_format = input("US' date: ")
     # Check for correct format

@@ -12,12 +12,11 @@ menu = {
 bill = 0
 while True:
     Order = input("Items: ")
-    if Order == '':
+    if Order == '': # control - d
         break
     # convert the input in to title cased form
-    order = Order.title()
-    if order in menu.keys():
-        bill = bill + menu[order]
+    if Order.title() in menu.keys():
+        bill = bill + menu[Order.title()]
         print(f'Total: {bill}$')
         continue
     else:

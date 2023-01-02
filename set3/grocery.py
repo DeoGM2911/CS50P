@@ -4,7 +4,7 @@ dict_of_grocery = dict()
 while True:
     stuff = input("Items: ")
     if len(stuff) == 0: 
-        break #control-d technically
+        break #control-d 
     dict_of_grocery[stuff.upper()] = dict_of_grocery.get(stuff.upper(), 0) + 1
     
 #Add stuff into the grocery list

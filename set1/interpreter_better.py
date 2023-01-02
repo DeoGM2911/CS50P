@@ -1,44 +1,40 @@
-while True:
-    prompt = input("What is the expression? \n")
-    #format x y z where x and z are integers and y is an operation ( + - * /)
-    if prompt == '1': break
-    #for testing purposes
-    elements = prompt.split(' ')
-    #Re-prompt the expression if the input format is not correct
-    try:
-        x = float(elements[0])
-        y = elements[1]
-        z = float(elements[2])
-    except:
-        print("Error with math expression! Please try again!")
-        continue
-    def power(x: float,z: float):
-        """This is to create an interpreter for power operation
+def main():
+    while True:
+        #format x y z where x and z are integers and y is an operation ( + - * /)
+        elements = input("What is the expression? \n").split(' ')
+        #Re-prompt the expression if the input format is not correct
+        try:
+            # We can trim this down to one line, but for readability, I'll keep the variables x,z,y
+            x = float(elements[0])
+            z = float(elements[2])
+            y = elements[1]
+            print(intepreter(x,z,y))
+        except ValueError:
+            print("Error with math expression!")
+            continue
 
-        Args:
-            x (float): the base
-            z (float): the power
 
-        Returns:
-            x to the power of z
+# The function here is 
+def intepreter(x: float,z: float, y: str):
+    """This is to create an interpreter for operation
+    Args:
+        x (float) and z (float) are numbers
+    Returns: the result of the operation with two variable x and z
         """
-        list = []
-        result = 1
-        for i in range(int(z)):
-            list.append(int(x))
-        for value in list:
-            result = result * value
-        return float(result)
-    #The interpreter starts here
+    # Just for fun for other operations
     if y == '+':
-        print(f"The answer is {x+z}")
+        return f"The answer is {x+z}"
     elif y == '-':
-        print(f"The answer is {x-z}")
+        return f"The answer is {x-z}"
     elif y == '*':
-        print(f"The answer is {x*z}")
+        return f"The answer is {x*z}"
     elif y == '/':
-        print(f"The answer is {x/z}")
+        return f"The answer is {x/z}"
+    # Just for fun
     elif y == '**':
-        print(f"The answer is {power(x,z)}")
+        return f"The answer is {x**z}"
     else:
-        print("Error with math expression")
+        return "Error with the operation"
+
+
+main()

@@ -4,4 +4,4 @@ if answer == '42':
 elif (answer.lower() in ['forty-two','forty two']):
     print('Oh my god!')
 else:
-    print('No')
+    print('No!')

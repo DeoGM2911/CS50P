@@ -73,5 +73,6 @@ def generate_integer(_level: int):
         return ValueError
     return number
 
+
 if __name__ == "__main__":
     main()
