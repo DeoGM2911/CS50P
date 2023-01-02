@@ -1,40 +1,38 @@
-#This is for the 24-hour interval
+# This is for the 24-hour interval
 
 
 def main():
     time = input("What time is it? \n")
-    #format: NN:NN where N can be any number from 0 to 9
-    if convert24(time)-7>=0 and convert24(time)-8<=0:
+    # format: NN:NN where N can be any number from 0 to 9
+    if (convert24(time) - 7 >= 0) and (convert24(time) - 8 <= 0):
         print("breakfast")
-    elif convert24(time)-12>=0 and convert24(time)-13<=0:
+    elif (convert24(time) - 12 >= 0) and (convert24(time) - 13 <= 0):
         print("lunch")
-    elif convert24(time)-18>=0 and convert24(time)-19<=0:
+    elif (convert24(time) - 18 >= 0) and (convert24(time) - 19 <= 0):
         print("dinner")
 
 
 def convert24(time):
-    minute = int(time.split(':')[1])/60
+    minute = int(time.split(':')[1]) / 60
     hour = float(time.split(':')[0])
     return hour + minute
-
 
 
 if __name__ == "__main__":
     main()
 
-
-#This is for the 12-hour interval
+# This is for the 12-hour interval
 
 """
 def main1():
     time = convert12(input("What time is it? \n"))
     #format: NN:NN a.m. or NN:NN p.m. ; N is any number from 0 to 9
     try:
-        if convert12(time)-7>=0 and convert12(time)-8<=0:
+        if (convert12(time) - 7 >= 0) and (convert12(time) - 8 <= 0):
             print("breakfast")
-        elif convert12(time)-12>=0 and convert12(time)-13<=0:
+        elif (convert12(time) - 12 >= 0) and (convert12(time) - 13 <= 0):
             print("lunch")
-        elif convert12(time)-18>=0 and convert12(time)-19<=0:
+        elif (convert12(time) - 18 >= 0) and (convert12(time) - 19 <= 0):
             print("dinner")
     except ValueError:
         print("Invalid format!")
