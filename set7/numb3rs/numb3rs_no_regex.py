@@ -13,6 +13,8 @@ def validate_no_regex(ip: str) -> bool:
         True means proper IPv4 Address
         False means inproper address
     """
+    # In case the user misclick space
+    # _ip = ip.strip()
     # Check whether there are 4 componets and 3 dots.
     if ip.count(".") != 3:
         return False
