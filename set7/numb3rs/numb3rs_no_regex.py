@@ -13,8 +13,6 @@ def validate_no_regex(ip: str) -> bool:
         True means proper IPv4 Address
         False means inproper address
     """
-    # Just in case the user input leading or trailing whitespaces
-    # _ip = ip.strip()
     # Check whether there are 4 componets and 3 dots.
     if ip.count(".") != 3:
         return False
@@ -25,7 +23,7 @@ def validate_no_regex(ip: str) -> bool:
     except ValueError:
         return False
     # Check if there is any whitespace or escape sequence.
-    # This block is only needed if the user inputs anything different form numbers and dots.
+    # This block is only needed if the user inputs anything  different form numbers and dots.
     for string, integer in zip(comps, list_of_comp):
         if len(string) != len(str(integer)):
             return False
