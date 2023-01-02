@@ -17,7 +17,7 @@ def validate(ip: str) -> bool:
         False means inproper address
     """
     # EXPECT a format of A.B.C.D with A, B, C, and D are integers in the [0, 255] range.
-    ipv4 = re.search(r"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$", ip)
+    ipv4 = re.search(r"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$", ip)
     if ipv4 is None:
         return False
     nums = ipv4.group(0).split(".")
