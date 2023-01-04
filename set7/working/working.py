@@ -11,11 +11,11 @@ def main():
     print(convert(input("Hours: ")))
 
 
-def convert(s):
-    ...
+def convert(inp: str):
+    start, end = re.search(r"^[0-9]+(:[0-5][0-9])? AM to [0-9]+(:[0-5][0-9])? PM$", inp.strip())
 
 
-...
+
 
 
 if __name__ == "__main__":
