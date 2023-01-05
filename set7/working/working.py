@@ -24,11 +24,10 @@ def convert(inp: str):
     start = re.sub(r" (?:AM|PM)", "", hour.group(1))
     end = re.sub(r" (?:AM|PM)", "", hour.group(2))
 
+    # If the hour is in the PM, we add 12 to its hour part of the starting and/or ending hour.
     if hour.group(1).split(" ")[1] == "PM" and (hour.group(1).split(" ")[0].split(":")[0] != "12"):
-        # for convert PM to 24-hour format, we add 12 to hour.
         start = re.sub(r"[0-9]+", str(int(start.split(":")[0]) + 12), start, count=1)
     if hour.group(2).split(" ")[1] == "PM" and (hour.group(2).split(" ")[0].split(":")[0] != "12"):
-        # for convert PM to 24-hour format, we add 12 to hour.
         end = re.sub(r"[0-9]+", str(int(end.split(":")[0]) + 12), end, count=1)
 
     # Reformat if the user's input doesn't have the minute part (E.g 9 AM -> 9:00).
@@ -48,3 +47,4 @@ def convert(inp: str):
 
 if __name__ == "__main__":
     main()
+    
