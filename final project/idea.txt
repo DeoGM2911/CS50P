@@ -1,17 +1,18 @@
-The project is a simple model governing a bike shop.
-*Related content:
+#The project is a simple model governing a bike shop.
+* Related content:
 - OOP
 - Database (SQLite3)
-Goals:
+
+*Goals:
 + Govern the database containing buyers info. and the bikes in the storage
-+ Help search for the desire bike
-Note: 
++ Help search for the desired bike.
+
+* Note: 
 + This is a simplified version; in other words, an application should still be develop and the Python programs in
 this project would be implemented in the app.
++ I can also use libraries like tkinder to help with UX design. However, I want to focus on designing the database and 
+the Bikes class along with some functions that help with govern the database 
 
 
-
-Today is January 9th, 2023, 3 months after my first programing insight.
+side-note: Today is January 9th, 2023, 3 months after my first programing insight.
 I came up this idea for the final project for CS50P.
-I'm not taking the course for a certificate but rather as a measure of my comprehension
-of Python language which I have learn through a "newbie" course before.
