@@ -21,7 +21,7 @@ class Jar:
     def capacity(self):
         return self._capacity
     
-    @capacity.setter
+    @capacity.setter  # We could put this capacity.setter in the __init__. As we have use the getter, we need the setter as well
     def capacity(self, capacity: int):
         if int(capacity) <= 0:
             raise ValueError("Not a valid capacity!")
@@ -33,6 +33,6 @@ class Jar:
     
     @size.setter
     def size(self, size: int = 0):
-        if (size < 0) or (size > self.capacity):
+        if (size < 0) or (size > self.capacity): # Check for valid number of cookies in the jar
             raise ValueError("Not a valid number!")
         self._size = size
