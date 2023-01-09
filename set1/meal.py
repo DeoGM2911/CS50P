@@ -4,15 +4,15 @@
 def main():
     time = input("What time is it? \n")
     # format: NN:NN where N can be any number from 0 to 9
-    if (convert24(time) - 7 >= 0) and (convert24(time) - 8 <= 0):
+    if (convert(time) - 7 >= 0) and (convert(time) - 8 <= 0):
         print("breakfast")
-    elif (convert24(time) - 12 >= 0) and (convert24(time) - 13 <= 0):
+    elif (convert(time) - 12 >= 0) and (convert(time) - 13 <= 0):
         print("lunch")
-    elif (convert24(time) - 18 >= 0) and (convert24(time) - 19 <= 0):
+    elif (convert(time) - 18 >= 0) and (convert(time) - 19 <= 0):
         print("dinner")
 
 
-def convert24(time):
+def convert(time):
     minute = int(time.split(':')[1]) / 60
     hour = float(time.split(':')[0])
     return hour + minute
@@ -21,7 +21,7 @@ def convert24(time):
 if __name__ == "__main__":
     main()
 
-# This is for the 12-hour interval
+# This is my solution for the 12-hour interval
 
 """
 def main1():

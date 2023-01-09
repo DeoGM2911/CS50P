@@ -7,11 +7,6 @@ fda_poster = {
             'sweet cherries':'100','tagerine':'50','watermelon':'80'
             }
 
-while True:
-    fruit = input('Item: ')
-    # if fruit == '1': #This is for manually testing
-    #    break
-    if fruit.lower() in fda_poster.keys():
-        print(f'Calories: {fda_poster[fruit.lower()]}')
-    else:
-        print('Not available! Please retry!')
+fruit = input('Item: ')
+if fruit.lower() in fda_poster.keys():
+    print(f'Calories: {fda_poster[fruit.lower()]}')

@@ -9,22 +9,25 @@ def main():
 def is_valid(s: str):
     special_char = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
                     '{', '}', '[', ']', ':', ';', '"', "'", ',', '<',
-                    '.', '>', '?', '?', '|', '`', '~', '-', '_', '+', '=']
+                    '.', '>', '?', '?', '|', '`', '~', '-', '_', '+',
+                    '=', "\\"]
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    # The special case is still lack the \ sign
 
     # requirement No.1: 2<= length <=6
     if not 2 <= len(s) <= 6:
         return False
 
     # requirement No.2: start with 2 letters
-    if s[0] in numbers:
-        return False
-    elif s[1] in numbers:
-        return False
-    else:
-        if len(s) == 2:
-            return True
+    try:
+        if int(s[0]) in numbers:
+            return False
+        elif int(s[1]) in numbers:
+            return False
+        else:
+            if len(s) == 2:
+                return True
+    except ValueError:
+        pass   
     # Check the last number of requirement 3
     if not s[-1] in numbers:
         return False

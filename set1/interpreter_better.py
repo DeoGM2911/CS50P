@@ -21,7 +21,6 @@ def intepreter(x: float,z: float, y: str):
         x (float) and z (float) are numbers
     Returns: the result of the operation with two variable x and z
         """
-    # Just for fun for other operations
     if y == '+':
         return f"The answer is {x+z}"
     elif y == '-':
@@ -30,7 +29,7 @@ def intepreter(x: float,z: float, y: str):
         return f"The answer is {x*z}"
     elif y == '/':
         return f"The answer is {x/z}"
-    # Just for fun
+    # Just for fun for the power operation
     elif y == '**':
         return f"The answer is {x**z}"
     else:
