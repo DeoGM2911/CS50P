@@ -1,0 +1,10 @@
+The project is a simple model governing a bike shop.
+*Related content:
+- OOP
+- Database (SQLite3)
+Goals:
++ Govern the database containing buyers info. and the bikes in the storage
++ Help search for the desire bike
+Note: 
++ This is a simplified version; in other words, an application should still be develop and the Python programs in
+this project would be implemented in the app. 
