@@ -36,7 +36,6 @@ def is_valid(s: str):
     if len(s) == 3 and s[-1] != "0": # If the length of the plate is 3, then it is valid
         return True
 
-
     # requirement No.3: letter can't be the end of the plate and number can't be in the middle
     # for all other characters. The first two chars 've already satisfied the conditions.
     # for length of 4, 5, 6
