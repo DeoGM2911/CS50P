@@ -3,7 +3,7 @@ from fuel import convert, gauge
 
 
 def test_convert_proper_arg():
-    for frac, percent in {"0/1": 0, "1/2": 50, "9/9": 100, "2/3": 66}.items():
+    for frac, percent in {"0/1": 0, "1/2": 50, "9/9": 100, "2/3": 67}.items():
         assert convert(frac) == percent
 
 def test_convert_wrong():

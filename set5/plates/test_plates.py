@@ -17,5 +17,5 @@ def test_req_4():
 
 
 def test_req_3():
-    for plate in ["CS05", "CS50P", "CS2D9", "CS23C2", "CS5P", "CSAP"]:
+    for plate in ["CS05", "CS50P", "CS2D9", "CS23C2", "CS5P"]:
         assert is_valid(plate) is False

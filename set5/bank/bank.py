@@ -4,7 +4,7 @@ def main():
 
 
 def value(greeting: str):
-    if greeting.lower() == 'hello':
+    if 'hello' in greeting.lower():
         return 0
     elif greeting.lower().startswith('h'):
         return 20

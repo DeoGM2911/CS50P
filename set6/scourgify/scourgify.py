@@ -30,11 +30,11 @@ try:
                 data[id].append(row[0].split(",")[id].lstrip())
             data[2].append(row[1])
 except FileNotFoundError:
-    sys.exit("No such directory found!")
+    sys.exit(f"Could not read {io_file[0]}")
 
 # Write the data into a new output file
 with open(io_file[1], "w", newline="") as ofile:
     writer = csv.DictWriter(ofile, fieldnames=["first", "last", "house"])
     writer.writeheader()
     for index in range(len(data[0])):
-        writer.writerow({"first": data[0][index], "last": data[1][index], "house": data[2][index]})
+        writer.writerow({"first": data[1][index], "last": data[0][index], "house": data[2][index]})
