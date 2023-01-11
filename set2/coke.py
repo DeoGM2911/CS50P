@@ -3,6 +3,7 @@ print(f"Amount Due: {amount_due}")
 while amount_due > 0:
     pay = int(input("Insert coin: "))
     if pay not in [25, 10, 5]:
+        print(f"Amount Due: {amount_due}")
         continue
     else:
         amount_due = amount_due - pay

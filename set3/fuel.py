@@ -17,8 +17,12 @@ while True:
             print('F')
             break
         else:
-            print(f'{int(percent)}%')
-            break
+            if int(percent) - percent < -0.5:
+                print(f'{int(percent + 1)}%')
+                break
+            else:
+                print(f'{int(percent)}%')
+                break
     except ValueError:  # if x or y aren't integer then re-prompt
         print("x or y is not an integer!")
         continue

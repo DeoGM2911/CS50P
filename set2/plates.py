@@ -31,8 +31,6 @@ def is_valid(s: str):
         return True
     
     # Check the last number of requirement 3
-    if not s[-1] in numbers:
-        return False
     if len(s) == 3 and s[-1] != "0": # If the length of the plate is 3, then it is valid
         return True
 
@@ -51,7 +49,7 @@ def is_valid(s: str):
                 if s[-4] in numbers:
                     return False
     else:  # The case when the char right before the end is a number
-        if s[-2] == 0 and len(s) == 4:
+        if s[-2] == '0' and len(s) == 4:
             return False  # if the length of the string is 4
         elif len(s) == 5:  # if the length of the string is 5
             if s[-3] == '0':

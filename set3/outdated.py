@@ -56,7 +56,7 @@ def check_for_date(date: str) -> bool:
 
 # The while loop is for re-prompting the user. We 
 while True:
-    USA_format = input("US' date: ")
+    USA_format = input("US' date: ").strip()
     # Check for correct format
     # Debug by splitting the if statement and reformat the while block
     if check_for_date(USA_format):
@@ -99,4 +99,4 @@ else:
     day = reformat(date_elements[1])
 # Generating the universal format YYYY-MM-DD
 uni_format = f'{year}-{month}-{day}'
-print(f"The date is: {uni_format}")
+print(f"{uni_format}")

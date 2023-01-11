@@ -2,10 +2,13 @@ dict_of_grocery = dict()
 
 # generate the grocery list
 while True:
-    stuff = input("Items: ")
+    try:
+        stuff = input("Items: ").upper()
+    except EOFError:
+        break
     if len(stuff) == 0: 
         break #control-d 
-    dict_of_grocery[stuff.upper()] = dict_of_grocery.get(stuff.upper(), 0) + 1
+    dict_of_grocery[stuff] = dict_of_grocery.get(stuff, 0) + 1
     
 # Add stuff into the grocery list
 list_of_grocery = list()
@@ -17,5 +20,4 @@ list_of_grocery.sort()
 
 # Add occurences
 for i in range(len(list_of_grocery)):
-    list_of_grocery[i] = f'{dict_of_grocery[list_of_grocery[i]]} {list_of_grocery[i]}'
-    print(list_of_grocery[i])
+    print(f'{dict_of_grocery[list_of_grocery[i]]} {list_of_grocery[i]}', end="\n")

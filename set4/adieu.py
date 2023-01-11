@@ -28,8 +28,6 @@ def insert_name():
     return list_name
 
 
-
-
 if __name__ == "__main__":
     main()
 

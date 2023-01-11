@@ -11,13 +11,16 @@ menu = {
 }
 bill = 0
 while True:
-    Order = input("Items: ")
+    try:
+        Order = input()
+    except EOFError:
+        break
     if Order == '': # control - d
         break
     # convert the input in to title cased form
-    if Order.title() in menu.keys():
+    if Order.title() in menu.keys():  # I used menu.keys() to avoid KeyError
         bill = bill + menu[Order.title()]
-        print(f'Total: {bill}$')
+        print(f'Total: ${bill:2f}')
         continue
     else:
         continue
