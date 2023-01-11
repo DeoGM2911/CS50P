@@ -9,7 +9,7 @@ lib_of_ext = {".gif":"image/gif",
 
 
 def main():
-    fname = input("What's the file's name? \n")
+    fname = input("What's the file's name? ")
     print(check_for_extension(fname))
 
 
