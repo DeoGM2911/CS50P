@@ -7,5 +7,5 @@ def test_proper_ipv4():
 
 
 def test_str():
-    for ip_str in ["256.3.45.100", "1.34.150.1000", "cat", "cat.dog.cow.bird", "cat.3.4.5", "", "\n", "2 .3.4 .5"]:
+    for ip_str in ["256.3.45.100", "1.34.150.1000", "cat", "cat.dog.cow.bird", "cat.3.4.5", "", "\n", "2 .3.4 .5", "1000.2.3.4"]:
         assert validate(ip_str) == False
