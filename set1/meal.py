@@ -3,7 +3,9 @@
 
 def main():
     time = input("What time is it? \n")
-    # format: NN:NN where N can be any number from 0 to 9
+    # format: NN:NN
+    if convert(time) >= 24: 
+        print("Invalid input!")
     if (convert(time) - 7 >= 0) and (convert(time) - 8 <= 0):
         print("breakfast")
     elif (convert(time) - 12 >= 0) and (convert(time) - 13 <= 0):

@@ -1,7 +1,8 @@
 def main():
+    # The while loop is for testing purposes
     while True:
         #format x y z where x and z are integers and y is an operation ( + - * /)
-        elements = input("What is the expression? \n").split(' ')
+        elements = input("What is the expression? ").split(' ')
         #Re-prompt the expression if the input format is not correct
         try:
             # We can trim this down to one line, but for readability, I'll keep the variables x,z,y

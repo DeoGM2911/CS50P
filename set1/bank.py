@@ -1,8 +1,8 @@
 # We can use a while loop test the code manually
-greet = input("What's going? \n")
+greet = input("What's going? ").strip()
 # if greet == '1':
 #     break
-if greet.lower() == 'hello':
+if 'hello' in greet.lower():
     print("$0")
 elif greet.lower().startswith('h'):
     print("$20")
