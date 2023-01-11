@@ -16,7 +16,7 @@ def main():
 def parse(html: str):
     url = re.search(r'src="(https?://(?:www\.)?youtube\.com/embed/[a-zA-Z0-9]+)"', html)
     if url is None:
-        sys.exit("No URL found!")
+        return None
     shorten_url = re.sub(r"https?://(www\.)?youtube\.com/embed", r"https://youtu.be", url.group(1))
     return shorten_url
 
