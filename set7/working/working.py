@@ -30,11 +30,17 @@ def convert(inp: str):
     if hour.group(2).split(" ")[1] == "PM" and (hour.group(2).split(" ")[0].split(":")[0] != "12"):
         end = re.sub(r"[0-9]+", str(int(end.split(":")[0]) + 12), end, count=1)
 
-    # Reformat if the user's input doesn't have the minute part (E.g 9 AM -> 9:00).
+    # Reformat if the user's input doesn't have the minute part (E.g 9 AM -> 09:00).
     if ":" not in start:
-        start = f"{start}:00"
+        if len(start) == 1:
+            start = f"0{start}:00"
+        else:
+            start = f"{start}:00"
     if ":" not in end:
-        end = f"{end}:00"
+        if len(end) == 1:
+            end = f"0{end}:00"
+        else:
+            end = f"{end}:00"
 
     # Convert 12:xx AM to 00:xx.
     if (hour.group(1).split(" ")[0].split(":")[0] == "12") and (hour.group(1).split(" ")[1] == "AM"):
@@ -47,4 +53,4 @@ def convert(inp: str):
 
 if __name__ == "__main__":
     main()
-    
+#####################################################################################################
