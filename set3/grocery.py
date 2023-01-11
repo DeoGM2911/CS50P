@@ -3,7 +3,7 @@ dict_of_grocery = dict()
 # generate the grocery list
 while True:
     try:
-        stuff = input("Items: ").upper()
+        stuff = input().upper()
     except EOFError:
         break
     if len(stuff) == 0: 

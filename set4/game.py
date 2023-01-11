@@ -4,7 +4,7 @@ while True:
     num = input("Level: ")
     try:
         n = int(num)
-        if n >= 0:
+        if n > 0:
             break
         else:
             continue
@@ -14,10 +14,13 @@ number = rd.randrange(1, n)
 
 while True:
     while True:
-        _guess = input("Guess: ")
         try:
+            _guess = input("Guess: ")
             guess = int(_guess)
-            break
+            if guess > 0:
+                break
+            else:
+                continue
         except ValueError:
             continue
     if guess - number == 0:
@@ -27,5 +30,5 @@ while True:
         print("Too large!")
         continue
     elif guess - number < 0:
-        print("Too small")
+        print("Too small!")
         continue

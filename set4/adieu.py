@@ -21,7 +21,10 @@ def insert_name():
     """
     list_name = list()
     while True:
-        name = input("Name: ")
+        try:
+            name = input("Name: ")
+        except EOFError:
+            break
         if len(name) < 1:
             break
         list_name.append(name)
