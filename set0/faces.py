@@ -5,8 +5,8 @@ def convert(text: str):
 
 
 def main():
-    text = input('Enter something! \n')
-    print(convert(text))
+    text = input()
+    print(convert(text), end="")
 
 
 main()
