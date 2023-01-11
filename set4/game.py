@@ -6,10 +6,9 @@ while True:
         n = int(num)
         if n > 0:
             break
-        else:
-            continue
     except ValueError:
         continue
+
 number = rd.randrange(1, n)
 
 while True:
