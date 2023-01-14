@@ -37,7 +37,7 @@ pdf.add_page("P", "a4")  # Default is "P" and "a4"
 
 # Print the image
 pdf.image(
-    "E:\CS50P\set8\shirtificate\shirtificate.png",
+    "shirtificate.png",
     x=5,                # Centre horizontally (image's width + 2x == 210)
     y=(297 - 210) / 2,  # Centre vertically (image's height + 2y == 297)
     w=200,            # Reshape the image's width
@@ -70,4 +70,5 @@ pdf.cell(
     )
 
 # Generate the file
+# while testing on computer, just add the full directory on Mac or Window
 pdf.output("shirtificate.pdf")
