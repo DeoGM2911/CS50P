@@ -29,20 +29,27 @@ def convert(inp: str):
         start = re.sub(r"[0-9]+", str(int(start.split(":")[0]) + 12), start, count=1)
     if hour.group(2).split(" ")[1] == "PM" and (hour.group(2).split(" ")[0].split(":")[0] != "12"):
         end = re.sub(r"[0-9]+", str(int(end.split(":")[0]) + 12), end, count=1)
-
-    # Reformat if the user's input doesn't have the minute part (E.g 9 AM -> 09:00).
-    if ":" not in start:
-        if len(start) == 1:
-            start = f"0{start}:00"
+    
+    
+    def reformat(hr: str) -> str:    
+        if ":" not in hr:
+            if len(hr) == 1:
+                hr = f"0{hr}:00"
+            else:
+                hr = f"{hr}:00"
         else:
-            start = f"{start}:00"
-    if ":" not in end:
-        if len(end) == 1:
-            end = f"0{end}:00"
-        else:
-            end = f"{end}:00"
-
-    # Convert 12:xx AM to 00:xx.
+            if len(hr.split(':')[0]) == 1:
+                hr = f"0{hr.split(':')[0]}:{hr.split(':')[1]}"
+            else:
+                hr = f"{hr.split(':')[0]}:{hr.split(':')[1]}"
+        return hr
+    
+    
+    # Reformat the user's input (E.g 9 AM -> 09:00).
+    start = reformat(start)
+    end = reformat(end)
+    
+    # Convert 12:xx AM to 00:xx. This part go after the reformat because this block assume the format has a semi-colon.
     if (hour.group(1).split(" ")[0].split(":")[0] == "12") and (hour.group(1).split(" ")[1] == "AM"):
         start = f"00:{start.split(':')[1]}"
     if (hour.group(2).split(" ")[0].split(":")[0] == "12") and (hour.group(2).split(" ")[1] == "AM"):
@@ -53,4 +60,3 @@ def convert(inp: str):
 
 if __name__ == "__main__":
     main()
-#####################################################################################################
