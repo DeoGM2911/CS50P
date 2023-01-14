@@ -70,4 +70,4 @@ pdf.cell(
     )
 
 # Generate the file
-pdf.output("result.pdf")
+pdf.output("shirtificate.pdf")
