@@ -1,8 +1,11 @@
 class Jar:
     def __init__(self, capacity: int = 12):
-        self.capacity = capacity
+        self.capacity = capacity 
         self._size = 0  # By default the number of cookies is 0
 
+    # We don't use the underscore for capacity as it need to be checked by its setter
+    # We use underscore for size as the default value is a constant
+    
     def __str__(self):
         return "🍪" * self.size
 
