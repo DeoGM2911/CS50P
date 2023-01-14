@@ -1,7 +1,7 @@
 class Jar:
     def __init__(self, capacity: int = 12):
-        self._capacity = capacity
-        self._size = 0  # By default the number of cookies is 0
+        self.capacity = capacity
+        self.size = 0  # By default the number of cookies is 0
 
     def __str__(self):
         return "🍪" * self.size
@@ -9,12 +9,12 @@ class Jar:
     def deposit(self, n: int):
         if n < 0:  # By the meaning, we can't deposit a negative number of cookies
             raise ValueError("Not a valid number!")
-        self._size += n
+        self.size += n
 
     def withdraw(self, n: int):
         if n < 0: # By the meaning, we can't withdraw a negative number of cookies
             raise ValueError("Not a valid number!")
-        self._size -= n
+        self.size -= n
 
 
     @property
