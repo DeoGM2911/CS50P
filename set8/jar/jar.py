@@ -1,7 +1,7 @@
 class Jar:
     def __init__(self, capacity: int = 12):
         self.capacity = capacity
-        self.size = 0  # By default the number of cookies is 0
+        self._size = 0  # By default the number of cookies is 0
 
     def __str__(self):
         return "🍪" * self.size
@@ -36,3 +36,6 @@ class Jar:
         if (size < 0) or (size > self.capacity): # Check for valid number of cookies in the jar
             raise ValueError("Not a valid number!")
         self._size = size
+
+jar=Jar(20)
+jar.withdraw(5)
