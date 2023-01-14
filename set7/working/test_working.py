@@ -19,9 +19,10 @@ def test_correct_1():
 
 def test_wrong_format():
     with pt.raises(ValueError):
-        convert("cat")
-        convert("9 AM - 12 PM")
-        convert("13 PM to 12 AM")
-        convert("12:60 AM to 5 AM")
+        convert("9 AM - 12 PM")  # Omit "to"
+    with pt.raises(ValueError):
+        convert("13 AM to 3 PM")  # Out of range
+    with pt.raises(ValueError):
+        convert("9 to 17")  # Invalid format
         # The appropriateness of the minute part is covered by the regex
         # The regex make sure there must be a "to" in the string literal.
