@@ -1,27 +1,36 @@
 import random as rd
+import sys
 
-while True:
-    num = input("Level: ")
-    try:
-        n = int(num)
-        if n > 0:
-            break
-    except ValueError:
-        continue
 
-number = rd.randrange(1, n)
-
-while True:
-    try:
-        guess = int(input("Guess: "))
-        if guess <= 0:
+def get_level():
+    while True:
+        try:
+            level = int(input("Level: "))
+            if level > 0:
+                return level
+        except ValueError:
             continue
-    except ValueError:
-        continue
-    if guess - number == 0:
-        print("Just right!")
-        break
-    elif guess - number > 0:
-        print("Too large!")
-    elif guess - number < 0:
-        print("Too small!")
+
+
+def guesser(goal):
+    while True:
+        try:
+            guess = int(input("Guess: "))
+            if guess > 0:
+                if guess == goal:
+                    print("Just right!")
+                    sys.exit()
+                elif guess > goal:
+                    print("Too large!")
+                else:
+                    print("Too small!")
+        except ValueError:
+            continue
+
+
+def main():
+    goal = rd.randint(1, get_level())
+    guesser(goal)
+
+
+main()
