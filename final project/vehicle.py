@@ -156,4 +156,16 @@ class Car(Vehicle):
 
 
 class Motorbike(Vehicle):
-    pass
+    def __init__(self, power, cyl_capacity, price, max_torsion=None, mass=None, city="Hanoi") -> None:
+        super().__init__(power, cyl_capacity, price, max_torsion, mass, city)
+    
+    def get_tot_price_motorbike(self):
+        if self.price < 639.66:
+            return f"${self.price * 1.1 + 31.98}"
+        elif 1705.76 >= self.price >= 639.66:
+            return f"${self.price * 1.1 + 63.97}"
+        else:
+            return f"${self.price * 1.1 + 127.93}"
+    
+    def type_of_motorbike(self):
+        return self.cyl_capacity > 50

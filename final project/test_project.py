@@ -1,0 +1,1 @@
+from project import plate_gen_or_check, regis_fee, check_age

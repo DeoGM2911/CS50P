@@ -1,4 +1,5 @@
 - func 1: use regular expressions and class property
++ use sys to prompt the user to whether choose a random or self-generated plate
 (https://thuvienphapluat.vn/phap-luat/bien-so-xe-cua-co-quan-to-chuc-ca-nhan-trong-nuoc-duoc-quy-dinh-nhu-the-nao-theo-phap
 -luat-ve-giao--741162-4681.html#:~:text=nh%C3%A2n%20trong%20n%C6%B0%E1%BB%9Bc-,Bi%E1%BB%83n%20s%E1%BB%91%20c%E1%B
 B%A7a%20xe%20m%C3%B4%20t%C3%B4%20%C4%91%C6%B0%E1%BB%A3c%20quy%20%C4%91%E1%BB%8B
