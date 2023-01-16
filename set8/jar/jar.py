@@ -39,6 +39,3 @@ class Jar:
         if (size < 0) or (size > self.capacity): # Check for valid number of cookies in the jar
             raise ValueError("Not a valid number!")
         self._size = size
-
-jar=Jar(20)
-jar.withdraw(5)

@@ -16,16 +16,18 @@ properties (or useful ones) of a vehicle (or a car or a motorbike)
 + the volume of cylinder: float (cm^3)
 + max torsion: int (rounds/min)
 + mass of the vehicle: float (tons)
-+ price (along with tax): round to an int (in USD)
++ price (tax not included): round to an int (in USD)
 + method: qualified: check whether the user can use the vehicle (checking the cylinder's volume)
 
 - the class car will have:
++ tax: float (percent) based on the price
 + property: capacity: int (people)
 + class constant: list of cities that have different car registration fees
-+ method: get_price_car: give the registration price based on the conditions.
-+ method: find the type of car: big/small family car, truck/contruction cars
++ method: get_price_car: give the total price based on the conditions.
++ method type_of_car: find the type of car: big/small family car, truck/contruction cars
 
 - the class vehicle will have:
++ tax: float (percent) based on the price
 + class constant: list of motorbike's prices that govern the registration fee
-+ method: get_price_motorbike: give the registration price based on the conditions.
++ method: get_price_motorbike: give the total price based on the conditions.
 + method: find the type of motorbike based on the cylinder's volume -> affect the registration plates

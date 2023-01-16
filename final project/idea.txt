@@ -5,7 +5,8 @@ I came up this idea for the final project for CS50P.
 # in project.py
  main: prompt name, DOB, loai phuong tien da mua, gia tien mua, suc chua, thong so cua xe (ve mat ki thuat)
   -> print name and addtional info using 3 below functions
- func 1: tao bien so xe cho phuong tien thong thuong -> use regular expressions
+ func 1: tu dong tao bien so xe cho phuong tien thong thuong hoac cho phep chon bien (Thuc te thi theo 
+ phap luat Vietnam thi ko dc tu chon bien so) -> use regular expressions
  func 2: Kiem tra xem du so tuoi de mua xe tren 50cc chua (18+) -> datetime module, also generate the date of issue if
         the user is qualified for registration.
  func 3: phi dang ky bien so xe (price for registrating: vary depends on the 
@@ -16,4 +17,7 @@ I came up this idea for the final project for CS50P.
 
 # in vehicle.py
  implement a class vehicle
- add sub classes car and motorbike 
+ add sub classes car and motorbike
+
+ # J4F: plate_image.py 
+ print a pdf file of the plate with some details about the user
