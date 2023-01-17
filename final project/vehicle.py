@@ -13,12 +13,12 @@ class Vehicle:
         "Thua Thien Hue", "Tien Giang", "Tra Vinh", "Tuyen Quang", "Vinh Long", "Vinh Phuc", "Yen Bai"
     ]
     
-    def __init__(self, power, cyl_capacity, price, max_torsion=None, mass=None, city="Hanoi") -> None:
-        self.power = power  # The vehicle's power in Horse Power or HP
+    def __init__(self, cyl_capacity, price, max_torsion, mass, power, city="Hanoi") -> None:
         self.cyl_capacity = cyl_capacity  # the vehicle's engine's capacity in cm^3
+        self.price = price  # tax-not-included price in USD
         self.max_tor = max_torsion  # the maximum torsion of the vehicle in rounds/min
         self.mass = mass  # The vehicle's mass in kg
-        self.price = price  # tax-not-included price in USD
+        self.power = power  # The vehicle's power in Horse Power or HP
         self.city = city
     
     def __str__(self):
@@ -41,7 +41,9 @@ _______________________________"""
     
     @power.setter
     def power(self, power):
-        if power < 0:
+        if power is None:
+            pass
+        elif float(power) < 0:
             raise ValueError("Not a valid number!")
         self._power = power
     
@@ -63,7 +65,7 @@ _______________________________"""
     def max_tor(self, max_torsion):
         if max_torsion is None:
             pass
-        if max_torsion < 0:
+        elif float(max_torsion) < 0:
             raise ValueError("Not a valid number!")
         self._max_torsion = max_torsion
     
@@ -75,7 +77,7 @@ _______________________________"""
     def mass(self, mass):
         if mass is None:
             pass
-        if mass < 0:
+        elif float(mass) < 0:
             raise ValueError("Not a valid number!")
         self._mass = mass
     
@@ -85,7 +87,7 @@ _______________________________"""
     
     @price.setter
     def price(self, price):
-        if price < 0:
+        if float(price) < 0:
             raise ValueError("Not a valid number!")
         self._price = price
     
@@ -95,12 +97,12 @@ _______________________________"""
     
     @city.setter
     def city(self, city):
-        if city not in Car.cities:
+        if city not in Vehicle.cities:
             raise ValueError("City not found!")
         self._city = city
     
     def checked(self):  # Mostly used by the motorbike subclass
-        return self.cyl_capacity <= 50
+        return float(self.cyl_capacity) <= 50
 
 
 class Car(Vehicle):
@@ -108,13 +110,13 @@ class Car(Vehicle):
     tax_regitration_fee = {"Hanoi": 0.12, "Danang": 0.12, "Haiphong": 0.12, "Ho Chi Minh City": 0.1, "Cantho": 0.1}
     # the VAT tax is 10% for all products
     
-    def __init__(self, power, cyl_capacity, price, max_torsion=None, mass=None, pass_capacity=4, city="Hanoi", max_load=None):
-        super().__init__(power, cyl_capacity, price, max_torsion, mass)
+    def __init__(self, cyl_capacity, price, max_torsion, mass, power, max_load, pass_capacity=4, city="Hanoi"):
+        super().__init__(cyl_capacity, price, max_torsion, mass, power, city)
         self.pass_capacity = pass_capacity  # The maximum passengers the car can have
         self.max_load = max_load  # The maximum load in tons
     
     def __str__(self):
-        return f"{super().__str__()}\n  - Capacity: {self.pass_capacity}\n  - Max Load: {self.max_load}"
+        return f"{super().__str__()}\n  - Capacity: {float(self.pass_capacity)}\n  - Max Load: {float(self.max_load)}"
     
     @property
     def pass_capacity(self):
@@ -122,7 +124,7 @@ class Car(Vehicle):
     
     @pass_capacity.setter
     def pass_capacity(self, pass_capacity):
-        if pass_capacity < 2:
+        if float(pass_capacity) < 2:
             raise ValueError("Not a valid capacity!")
         self._pass_capa = pass_capacity
     
@@ -134,38 +136,38 @@ class Car(Vehicle):
     def max_load(self, max_load):
         if max_load is None:
             pass
-        if max_load < 0:
+        elif float(max_load) < 0:
             raise ValueError("Not a valid number!")
         self._max_load = max_load
     
     def get_tot_price_car(self):
         if self.city not in Car.tax_regitration_fee.keys():
-            return f"${self.price * 1.1 + 42.67}"
+            return f"${float(self.price) * 1.1 + 42.67}"
         elif self.city in Car.tax_regitration_fee.keys() and self.city not in Car.tax_plate_regitration.keys():
-            return f"${self.price * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67}"
+            return f"${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67}"
         elif self.city == "Hanoi" or self.city == "Ho Chi Minh City":
-            return f"${self.price * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]}"
+            return f"${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]}"
 
     def type_of_car(self):
-        if 2 <= self.pass_capacity <= 7:
+        if 2 <= float(self.pass_capacity) <= 7:
             return "Family car"
-        elif 7 >= self.mass >= 3:
+        elif 7 >= float(self.mass) >= 3:
             return "Light commercial vehicle"
-        elif self.mass > 7:
+        elif float(self.mass) > 7:
             return "Heavy truck"
 
 
 class Motorbike(Vehicle):
-    def __init__(self, power, cyl_capacity, price, max_torsion=None, mass=None, city="Hanoi") -> None:
-        super().__init__(power, cyl_capacity, price, max_torsion, mass, city)
+    def __init__(self, cyl_capacity, price, max_torsion, mass, power, city="Hanoi") -> None:
+        super().__init__(cyl_capacity, price, max_torsion, mass, power, city)
     
     def get_tot_price_motorbike(self):
-        if self.price < 639.66:
-            return f"${self.price * 1.1 + 31.98}"
-        elif 1705.76 >= self.price >= 639.66:
-            return f"${self.price * 1.1 + 63.97}"
+        if float(self.price) < 639.66:
+            return f"${float(self.price) * 1.1 + 31.98}"
+        elif 1705.76 >= float(self.price) >= 639.66:
+            return f"${float(self.price) * 1.1 + 63.97}"
         else:
-            return f"${self.price * 1.1 + 127.93}"
+            return f"${float(self.price) * 1.1 + 127.93}"
     
     def type_of_motorbike(self):
-        return self.cyl_capacity > 50
+        return float(self.cyl_capacity) > 50
