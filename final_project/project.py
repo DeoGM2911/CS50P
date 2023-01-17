@@ -2,6 +2,7 @@ import re
 from datetime import date
 from vehicle import Vehicle, Car, Motorbike
 import sys
+import random as rd
 
 
 def main():
@@ -9,9 +10,9 @@ def main():
     print("** indicates that the field is required!")
     name = input("**Name: ")
     while True:
-        date_of_birth = input("**DOB: ")
         try:
-            if check_age(date_of_birth)[0]:
+            qualified, age = check_age(input("**DOB: "))
+            if qualified:
                 sys.exit("You are not old enough to buy a vehicle!")
             else:
                 break
@@ -19,7 +20,7 @@ def main():
             print("Invalid DOB! Please try again!")
             continue
     while True:
-        if (city := input("**Your city: ")) not in Vehicle.cities:
+        if (city := input("**Your city: ").strip().title()) not in Vehicle.cities:
             print("Invalid city! Please try again!")
             continue
         else:
@@ -60,8 +61,28 @@ def main():
     ########## Create an input for addtional support with methods for car and motorbike
 
 
-def plate_gen_or_check(plate):
-    pass
+def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
+    # Format XXY-ZZZZZ where XX is a number from 11 to 99, Y is a letter (or AA/AB)
+    if index == "0":  # Randomize the plate number
+        nums = str(rd.randint(0, 99999))
+        plate_nums = '0' * (5 - len(nums)) + nums
+        if (type(vehicle) is Motorbike) and (not vehicle.type_of_motorbike()):
+            seri = rd.choice("AA", "AB")
+        else:
+            seri = rd.choice(Vehicle.seri)
+        city_num = rd.choice(Vehicle.cities[vehicle.city])
+        return f"{city_num}{seri}-{plate_nums}" 
+    if index == "1":  # Check the wanted plate
+        if regis_plate := re.search(r"(^[1-9][1-9])([a-z][ab]?)-[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
+            if regis_plate.group(1) not in Vehicle.cities[vehicle.city]:  # Valid number corresponding to the city
+                raise ValueError("Not a valid city!")
+            if regis_plate.group(2).upper() in ["AA", "AB"] and type(vehicle) is Motorbike and float(vehicle.type_of_motorbike()) > 50:
+                raise ValueError("Not a valid seri!")
+        else:
+            raise ValueError("Not a valid plate!")
+    else:
+        print("Please enter 0 or 1!")
+        return False
 
 
 def check_age(dob):

@@ -1,17 +1,21 @@
 class Vehicle:
     # list of provinces and cities in Vietnam
-    cities = [
-        "An Giang", "Ba Ria-Vung Tau", "Bac Lieu", "Bac Giang", "Bac Kan", "Bac Ninh",
-        "Ben Tre", "Binh Duong", "Binh Dinh", "Binh Phuoc", "Binh Thuan", "Ca Mau",
-        "Cao Bang", "Can Tho", "Da Nang", "Dak Lak", "Dak Nong", "Dien Bien","Dong Nai", 
-        "Dong Thap", "Gia Lai", "Ha Giang", "Ha Nam", "Hanoi", "Ha Tinh",
-        "Hai Duong", "Hai Phong", "Hau Giang", "Hoa Binh", "Hung Yen", "Khanh Hoa",
-        "Kien Giang", "Kon Tum", "Lai Chau", "Lang Son", "Lao Cai", "Lam Dong",
-        "Long An", "Nam Dinh", "Nghe An","Ninh Binh", "Ninh Thuan", "Phu Tho", "Phu Yen"
-        "Quang Binh", "Quang Nam", "Quang Ngai", "Quang Ninh", "Quang Tri", "Soc Trang", 
-        "Son La", "Tay Ninh", "Thai Binh", "Thai Nguyen", "Thanh Hoa", "Ho Chi Minh city", 
-        "Thua Thien Hue", "Tien Giang", "Tra Vinh", "Tuyen Quang", "Vinh Long", "Vinh Phuc", "Yen Bai"
-    ]
+    cities = {
+        "An Giang": [67], "Ba Ria-Vung Tau": [72], "Bac Lieu": [94], "Bac Giang": [98], "Bac Kan": [97], "Bac Ninh": [99],
+        "Ben Tre": [71], "Binh Duong": [61], "Binh Dinh": [77], "Binh Phuoc": [93], "Binh Thuan": [86], "Ca Mau": [69],
+        "Cao Bang": [11], "Can Tho": [65], "Da Nang": [43], "Dak Lak": [47], "Dak Nong": [48], "Dien Bien": [27],
+        "Dong Nai": [39, 60], "Dong Thap": [66], "Gia Lai": [81], "Ha Giang": [23], "Ha Nam": [90],
+        "Hanoi": [29, 30, 31, 32, 33, 40], "Ha Tinh": [38],"Hai Duong": [34], "Hai Phong": [15, 16], "Hau Giang": [95],
+        "Hoa Binh": [28], "Hung Yen": [89], "Khanh Hoa": [79], "Kien Giang": [68], "Kon Tum": [82], "Lai Chau": [25],
+        "Lang Son": [12], "Lao Cai": [24], "Lam Dong": [49], "Long An": [62], "Nam Dinh": [18], "Nghe An": [37],
+        "Ninh Binh": [35], "Ninh Thuan": [85], "Phu Tho": [19], "Phu Yen": [78], "Quang Binh": [73], "Quang Nam": [92], 
+        "Quang Ngai": [76], "Quang Ninh": [14], "Quang Tri": [74], "Soc Trang": [83], "Son La": [26], "Tay Ninh": [70], 
+        "Thai Binh": [17], "Thai Nguyen": [20], "Thanh Hoa": [36], 
+        "Ho Chi Minh city": [41, 50, 51, 52 ,53, 54, 55, 56, 57, 58, 59], "Thua Thien Hue": [75],
+        "Tien Giang": [63], "Tra Vinh": [84], "Tuyen Quang": [22], "Vinh Long": [64], "Vinh Phuc": [88], "Yen Bai": [21]
+    }
+    
+    seri = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z']
     
     def __init__(self, cyl_capacity, price, max_torsion, mass, power, city="Hanoi") -> None:
         self.cyl_capacity = cyl_capacity  # the vehicle's engine's capacity in cm^3
@@ -97,7 +101,7 @@ _______________________________"""
     
     @city.setter
     def city(self, city):
-        if city not in Vehicle.cities:
+        if city not in Vehicle.cities.keys():
             raise ValueError("City not found!")
         self._city = city
     
