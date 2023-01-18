@@ -7,8 +7,8 @@ import time
 
 
 def main():
-    print("If you don'd know the info, please enter and skip the prompt!")
-    print("Enter esc to escape the program!")
+    print("- If you don'd know the info, please enter and skip the prompt!")
+    print("- Enter esc to escape the program!")
     print("** indicates that the field is required!")
     
 	# Get the user's name
@@ -19,10 +19,10 @@ def main():
     # Check the age condition of the user
     while True:
         try:
-            qualified = check_age(input("**DOB: "))
+            qualified = input("**DOB: ")
             if qualified == "esc":
                 sys.exit("Successfully exit the program.")
-            if qualified:
+            if check_age(qualified):
                 sys.exit("You are not old enough to buy a vehicle!")
             else:
                 break
@@ -82,14 +82,14 @@ def main():
     
     # Prompt the user for the feature they wish to use
     while True:
-        feat = input("""******************
-        * Please input the following numbers corresponding to the features you want to use:
-        0: Generate a random liscense plate.
-        1: Check your desired liscense plate. Also type your liscense plate right next to the number 1.
-        (PLease be aware of white spaces)
-        2: Check the total value for registrating the vehicle.
-        3: Check your vehicle's details.
-        4: Exit the program.\nNumber: """).strip()
+        feat = input("""***********************
+* Please input the following numbers corresponding to the features you want to use:
+0: Generate a random liscense plate.
+1: Check your desired liscense plate. Also type your liscense plate right next to the number 1.
+(PLease be aware of white spaces)
+2: Check the total value for registrating the vehicle.
+3: Check your vehicle's details.
+4: Exit the program.\nNumber: """).strip()
         
         if feat == "4":
             sys.exit("Thank you for using the product!")
@@ -103,23 +103,33 @@ def main():
         if feat.split(" ")[0] == '1':
             try:
                 if plate_gen_or_check('1', vehicle, feat.split(" ")[1]):
+                    time.sleep(0.5)
                     print("Valid")
                 else:
+                    time.sleep(0.5)
                     print("Invalid")
                     continue
             except IndexError:
                 print("Please also enter the desired license plate!")
                 continue
+            except ValueError:
+                print("Not a valid plate! Please check your city number and seri!")
+                continue
         
         if feat == "2":
-            print(vehicle)
+            if type(vehicle) is Car:
+                print(vehicle.get_tot_price_car())
+            else:
+                print(vehicle.get_tot_price_motorbike())
             continue
         
         if feat == "3":
-            print(vehicle)
+            print(f"User: {name}\nType of vehicle: {_vehicle.capitalize()}{vehicle}")
+            time.sleep(0.5)
         
         else:
             print("Please enter a number!")
+            time.sleep(1)
             continue
 
 
@@ -146,7 +156,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
         else:
             seri = rd.choice(Vehicle.seri)
         city_num = rd.choice(Vehicle.cities[vehicle.city])
-        return f"{city_num}{seri}-{plate_nums}"
+        return f"Your license plate is: {city_num}{seri}-{plate_nums}"
     
     if index == "1":  # Check the wanted plate
         if regis_plate := re.search(r"(^[1-9][1-9])([a-z][ab]?)-[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):

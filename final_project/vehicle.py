@@ -1,18 +1,18 @@
 class Vehicle:
     # list of provinces and cities in Vietnam
     cities = {
-        "An Giang": [67], "Ba Ria-Vung Tau": [72], "Bac Lieu": [94], "Bac Giang": [98], "Bac Kan": [97], "Bac Ninh": [99],
-        "Ben Tre": [71], "Binh Duong": [61], "Binh Dinh": [77], "Binh Phuoc": [93], "Binh Thuan": [86], "Ca Mau": [69],
-        "Cao Bang": [11], "Can Tho": [65], "Da Nang": [43], "Dak Lak": [47], "Dak Nong": [48], "Dien Bien": [27],
-        "Dong Nai": [39, 60], "Dong Thap": [66], "Gia Lai": [81], "Ha Giang": [23], "Ha Nam": [90],
-        "Hanoi": [29, 30, 31, 32, 33, 40], "Ha Tinh": [38],"Hai Duong": [34], "Hai Phong": [15, 16], "Hau Giang": [95],
-        "Hoa Binh": [28], "Hung Yen": [89], "Khanh Hoa": [79], "Kien Giang": [68], "Kon Tum": [82], "Lai Chau": [25],
-        "Lang Son": [12], "Lao Cai": [24], "Lam Dong": [49], "Long An": [62], "Nam Dinh": [18], "Nghe An": [37],
-        "Ninh Binh": [35], "Ninh Thuan": [85], "Phu Tho": [19], "Phu Yen": [78], "Quang Binh": [73], "Quang Nam": [92], 
-        "Quang Ngai": [76], "Quang Ninh": [14], "Quang Tri": [74], "Soc Trang": [83], "Son La": [26], "Tay Ninh": [70], 
-        "Thai Binh": [17], "Thai Nguyen": [20], "Thanh Hoa": [36], 
-        "Ho Chi Minh city": [41, 50, 51, 52 ,53, 54, 55, 56, 57, 58, 59], "Thua Thien Hue": [75],
-        "Tien Giang": [63], "Tra Vinh": [84], "Tuyen Quang": [22], "Vinh Long": [64], "Vinh Phuc": [88], "Yen Bai": [21]
+        "An Giang": ['67'], "Ba Ria-Vung Tau": ['72'], "Bac Lieu": ['94'], "Bac Giang": ['98'], "Bac Kan": ['97'],
+        "Bac Ninh": ['99'], "Ben Tre": ['71'], "Binh Duong": ['61'], "Binh Dinh": ['77'], "Binh Phuoc": ['93'], 
+        "Binh Thuan": ['86'], "Ca Mau": ['69'],"Cao Bang": ['11'], "Can Tho": ['65'], "Da Nang": ['43'], "Dak Lak": ['47'], 
+        "Dak Nong": ['48'], "Dien Bien": ['27'], "Dong Nai": ['39', '60'], "Dong Thap": ['66'], "Gia Lai": ['81'], "Ha Giang": ['23'],
+        "Hanoi": ['29', '30', '31', '32', '33', '40'], "Ha Tinh": ['38'],"Hai Duong": ['34'], "Hai Phong": ['15', '16'],
+        "Hoa Binh": ['28'], "Hung Yen": ['89'], "Khanh Hoa": ['79'], "Kien Giang": ['68'], "Kon Tum": ['82'], "Lai Chau": ['25'],
+        "Lang Son": ['12'], "Lao Cai": ['24'], "Lam Dong": ['49'], "Long An": ['62'], "Nam Dinh": ['18'], "Nghe An": ['37'],
+        "Ninh Binh": ['35'], "Ninh Thuan": ['85'], "Phu Tho": ['19'], "Phu Yen": ['78'], "Quang Binh": ['73'], "Quang Nam": ['92'], 
+        "Quang Ngai": ['76'], "Quang Ninh": ['14'], "Quang Tri": ['74'], "Soc Trang": ['83'], "Son La": ['26'], "Tay Ninh": ['70'], 
+        "Thai Binh": ['17'], "Thai Nguyen": ['20'], "Thanh Hoa": ['36'], "Ha Nam": ['90'], "Hau Giang": ['95'],
+        "Ho Chi Minh city": ['41', '50', '51', '52' ,'53', '54', '55', '56', '57', '58', '59'], "Thua Thien Hue": ['75'],
+        "Tien Giang": ['63'], "Tra Vinh": ['84'], "Tuyen Quang": ['22'], "Vinh Long": ['64'], "Vinh Phuc": ['88'], "Yen Bai": ['21']
     }
     
     seri = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z']
@@ -33,7 +33,7 @@ class Vehicle:
     - Capacity: {self.cyl_capacity} (cm^3)
     - Max torsion: {self.max_tor} (rounds/min)
     - Mass: {self.mass} (tons)
-    - Price: ${self.price}"""
+    - Price: ${self.price}""".strip()
     
     def __add__(self, object):
         return f"The total price is: ${self.price + object.price}"
@@ -145,11 +145,11 @@ class Car(Vehicle):
     
     def get_tot_price_car(self):
         if self.city not in Car.tax_regitration_fee.keys():
-            return f"${float(self.price) * 1.1 + 42.67}"
+            return f"Total: ${float(self.price) * 1.1 + 42.67}"
         elif self.city in Car.tax_regitration_fee.keys() and self.city not in Car.tax_plate_regitration.keys():
-            return f"${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67}"
+            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67}"
         elif self.city == "Hanoi" or self.city == "Ho Chi Minh City":
-            return f"${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]}"
+            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]}"
 
     def type_of_car(self):
         if 2 <= float(self.pass_capacity) <= 7:
@@ -169,11 +169,11 @@ class Motorbike(Vehicle):
     
     def get_tot_price_motorbike(self):
         if float(self.price) < 639.66:
-            return f"${float(self.price) * 1.1 + 31.98}"
+            return f"Total: ${float(self.price) * 1.1 + 31.98}"
         elif 1705.76 >= float(self.price) >= 639.66:
-            return f"${float(self.price) * 1.1 + 63.97}"
+            return f"Total: ${float(self.price) * 1.1 + 63.97}"
         else:
-            return f"${float(self.price) * 1.1 + 127.93}"
+            return f"Total: ${float(self.price) * 1.1 + 127.93}"
     
     def type_motor(self):
         return float(self.cyl_capacity) > 50
