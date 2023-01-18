@@ -1,1 +1,0 @@
-from fpdf import FPDF
