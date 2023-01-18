@@ -141,7 +141,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
     if index == "0":  # Randomize the plate number
         nums = str(rd.randint(0, 99999))
         plate_nums = '0' * (5 - len(nums)) + nums
-        if (type(vehicle) is Motorbike) and (not vehicle.type_of_motorbike()):
+        if (type(vehicle) is Motorbike) and (not vehicle.type_motor()):
             seri = rd.choice(["AA", "AB"])
         else:
             seri = rd.choice(Vehicle.seri)

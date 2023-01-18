@@ -29,10 +29,10 @@ class Vehicle:
         return f"""
 * Note: if the value is None, it means that you haven't provided the info.
 *** The vehicle's attributes are:
-    - Power: {self.power} HP
-    - Capacity: {self.cyl_capacity} cm^3
-    - Max torsion: {self.max_tor} rounds/min
-    - Mass: {self.mass} tons
+    - Power: {self.power} (HP)
+    - Capacity: {self.cyl_capacity} (cm^3)
+    - Max torsion: {self.max_tor} (rounds/min)
+    - Mass: {self.mass} (tons)
     - Price: ${self.price}"""
     
     def __add__(self, object):
@@ -119,7 +119,7 @@ class Car(Vehicle):
         self.max_load = max_load  # The maximum load in tons
     
     def __str__(self):
-        return f"{super().__str__()}\n  - Capacity: {float(self.pass_capacity)}\n  - Max Load: {float(self.max_load)}"
+        return f"{super().__str__()}\n  - Capacity: {float(self.pass_capacity)} people\n  - Max Load: {float(self.max_load)} (tons)"
     
     @property
     def pass_capacity(self):
