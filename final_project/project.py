@@ -167,10 +167,11 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
                 else:
                     return True
             # Check for car
-            if regis_plate.group(2).upper() in ["AA", "AB"] and type(vehicle) is Car:
-                raise ValueError("Not a valid seri!")
             else:
-                return True
+                if regis_plate.group(2).upper() in ["AA", "AB"] and type(vehicle) is Car:
+                    raise ValueError("Not a valid seri!")
+                else:
+                    return True
         else:
             raise ValueError("Not a valid plate!")
     else:
