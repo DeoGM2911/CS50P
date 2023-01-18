@@ -154,7 +154,9 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
         return f"Your license plate is: {city_num}{seri}-{plate_nums}"
     
     if index == "1":  # Check the wanted plate
-        if regis_plate := re.search(r"(^[1-9][1-9])([a-z][ab]?)-[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
+        if regis_plate := re.search(r"(^[1-9][0-9])([a-z][ab]?)-[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
+            if regis_plate.group(1) == "10":
+                raise ValueError("Not a valid starting number!")
             if regis_plate.group(1) not in Vehicle.cities[vehicle.city]:  # Valid number corresponding to the city
                 raise ValueError("Not a valid city!")
             # Only motorbike with the engine's volume less than 50 would have the seri of AA or AB
