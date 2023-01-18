@@ -33,8 +33,7 @@ class Vehicle:
     - Capacity: {self.cyl_capacity} cm^3
     - Max torsion: {self.max_tor} rounds/min
     - Mass: {self.mass} tons
-    - Price: ${self.price}
-_______________________________"""
+    - Price: ${self.price}"""
     
     def __add__(self, object):
         return f"The total price is: ${self.price + object.price}"
@@ -57,7 +56,7 @@ _______________________________"""
     
     @cyl_capacity.setter
     def cyl_capacity(self, cyl_capacity):
-        if cyl_capacity < 0:
+        if float(cyl_capacity) < 0:
             raise ValueError("Not a valid number!")
         self._cyl_capacity = cyl_capacity
     
@@ -165,6 +164,9 @@ class Motorbike(Vehicle):
     def __init__(self, cyl_capacity, price, max_torsion, mass, power, city="Hanoi") -> None:
         super().__init__(cyl_capacity, price, max_torsion, mass, power, city)
     
+    def __str__(self):
+        return super().__str__()
+    
     def get_tot_price_motorbike(self):
         if float(self.price) < 639.66:
             return f"${float(self.price) * 1.1 + 31.98}"
@@ -173,5 +175,5 @@ class Motorbike(Vehicle):
         else:
             return f"${float(self.price) * 1.1 + 127.93}"
     
-    def type_of_motorbike(self):
+    def type_motor(self):
         return float(self.cyl_capacity) > 50
