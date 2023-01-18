@@ -35,7 +35,7 @@ def main():
         if (city := input("**Your city: ").strip().title()) not in Vehicle.cities:
             print("Invalid city! Please try again!")
             continue
-        if city == "esc":
+        if city == "Esc":
             sys.exit("Successfully exit the program.")
         else:
             break

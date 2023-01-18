@@ -11,7 +11,7 @@ class Vehicle:
         "Ninh Binh": ['35'], "Ninh Thuan": ['85'], "Phu Tho": ['19'], "Phu Yen": ['78'], "Quang Binh": ['73'], "Quang Nam": ['92'], 
         "Quang Ngai": ['76'], "Quang Ninh": ['14'], "Quang Tri": ['74'], "Soc Trang": ['83'], "Son La": ['26'], "Tay Ninh": ['70'], 
         "Thai Binh": ['17'], "Thai Nguyen": ['20'], "Thanh Hoa": ['36'], "Ha Nam": ['90'], "Hau Giang": ['95'],
-        "Ho Chi Minh city": ['41', '50', '51', '52' ,'53', '54', '55', '56', '57', '58', '59'], "Thua Thien Hue": ['75'],
+        "Ho Chi Minh City": ['41', '50', '51', '52' ,'53', '54', '55', '56', '57', '58', '59'], "Thua Thien Hue": ['75'],
         "Tien Giang": ['63'], "Tra Vinh": ['84'], "Tuyen Quang": ['22'], "Vinh Long": ['64'], "Vinh Phuc": ['88'], "Yen Bai": ['21']
     }
     
