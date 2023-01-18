@@ -30,7 +30,7 @@ class Vehicle:
 * Note: if the value is None, it means that you haven't provided the info.
 *** The vehicle's attributes are:
     - Power: {self.power} (HP)
-    - Capacity: {self.cyl_capacity} (cm^3)
+    - Cylinder's Volume: {self.cyl_capacity} (cm^3)
     - Max torsion: {self.max_tor} (rounds/min)
     - Mass: {self.mass} (tons)
     - Price: ${self.price}""".strip()
