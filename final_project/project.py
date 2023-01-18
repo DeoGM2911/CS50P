@@ -57,6 +57,7 @@ def main():
     while True:
         cyl_vol = input("**Vehicle's cylinder volume (in cm^3): ")
         price = input("**The vehicle's price (tax not included) (in USD): ")
+        print("The fields below are optional! Press Enter to skip!")
         if len(power := input("The vehicle's power (in HP) (optional): ").strip()) < 1:
             power = None
         if len(max_tor := input("The vehicle's max torsion (in rounds/min) (optional): ").strip()) < 1:
@@ -88,7 +89,7 @@ def main():
 * Please input the following numbers corresponding to the features you want to use:
 0: Generate a random license plate.
 1: Check your desired license plate. Also type your license plate right next to the number 1.
-(PLease be aware of white spaces between the number 1 and the plate) (Sample Input: 1 29M-02453 or 1 29M 12341)
+(PLease be aware of white spaces between the number 1 and the license plate) (Sample Input: 1 29M-02453)
 2: Check the total value for registrating the vehicle.
 3: Check your vehicle's details.
 4: Exit the program.\nNumber: """).strip()
@@ -121,7 +122,7 @@ def main():
                 print(vehicle.get_tot_price_motorbike())
         
         elif feat == "3":
-            print(f"User: {name}\nType of vehicle: {_vehicle.capitalize()}{vehicle}")
+            print(f"User: {name}\nType of vehicle: {_vehicle.capitalize()}\n{vehicle}")
         
         else:
             print("Please enter a number!")
@@ -153,10 +154,11 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
         return f"Your license plate is: {city_num}{seri}-{plate_nums}"
     
     if index == "1":  # Check the wanted plate
-        if regis_plate := re.search(r"(^[1-9][1-9])([a-z][ab]?)(?:-| )[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
+        if regis_plate := re.search(r"(^[1-9][1-9])([a-z][ab]?)-[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
             if regis_plate.group(1) not in Vehicle.cities[vehicle.city]:  # Valid number corresponding to the city
                 raise ValueError("Not a valid city!")
             # Only motorbike with the engine's volume less than 50 would have the seri of AA or AB
+            # Check for motorbike
             if type(vehicle) is Motorbike:
                 if regis_plate.group(2).upper() in ["AA", "AB"] and vehicle.type_motor():
                     raise ValueError("Not a valid seri!")
@@ -164,6 +166,9 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
                     raise ValueError("Not a valid seri!")
                 else:
                     return True
+            # Check for car
+            if regis_plate.group(2).upper() in ["AA", "AB"] and type(vehicle) is Car:
+                raise ValueError("Not a valid seri!")
             else:
                 return True
         else:

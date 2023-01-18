@@ -119,7 +119,7 @@ class Car(Vehicle):
         self.max_load = max_load  # The maximum load in tons
     
     def __str__(self):
-        return f"{super().__str__()}\n  - Capacity: {float(self.pass_capacity)} people\n  - Max Load: {float(self.max_load)} (tons)"
+        return f"{super().__str__()}\n  - Capacity: {self.pass_capacity} people\n  - Max Load: {self.max_load} (tons)"
     
     @property
     def pass_capacity(self):
@@ -127,7 +127,9 @@ class Car(Vehicle):
     
     @pass_capacity.setter
     def pass_capacity(self, pass_capacity):
-        if float(pass_capacity) < 2:
+        if pass_capacity is None:
+            pass
+        elif float(pass_capacity) < 2:
             raise ValueError("Not a valid capacity!")
         self._pass_capa = pass_capacity
     
@@ -145,11 +147,11 @@ class Car(Vehicle):
     
     def get_tot_price_car(self):
         if self.city not in Car.tax_regitration_fee.keys():
-            return f"Total: ${float(self.price) * 1.1 + 42.67}"
+            return f"Total: ${float(self.price) * 1.1 + 42.67:.2f}"
         elif self.city in Car.tax_regitration_fee.keys() and self.city not in Car.tax_plate_regitration.keys():
-            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67}"
+            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67:.2f}"
         elif self.city == "Hanoi" or self.city == "Ho Chi Minh City":
-            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]}"
+            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]:.2f}"
 
     def type_of_car(self):
         if 2 <= float(self.pass_capacity) <= 7:
@@ -169,11 +171,11 @@ class Motorbike(Vehicle):
     
     def get_tot_price_motorbike(self):
         if float(self.price) < 639.66:
-            return f"Total: ${float(self.price) * 1.1 + 31.98}"
+            return f"Total: ${float(self.price) * 1.1 + 31.98:.2f}"
         elif 1705.76 >= float(self.price) >= 639.66:
-            return f"Total: ${float(self.price) * 1.1 + 63.97}"
+            return f"Total: ${float(self.price) * 1.1 + 63.97:.2f}"
         else:
-            return f"Total: ${float(self.price) * 1.1 + 127.93}"
+            return f"Total: ${float(self.price) * 1.1 + 127.93:.2f}"
     
     def type_motor(self):
         return float(self.cyl_capacity) > 50
