@@ -19,6 +19,7 @@ def main():
     # Check the age condition of the user
     while True:
         try:
+            print("The format for the DOB is DD/MM/YYYY or DD-MM-YYYY")
             qualified = input("**DOB: ")
             if qualified == "esc":
                 sys.exit("Successfully exit the program.")
@@ -42,6 +43,7 @@ def main():
     
     # Get the attributes of the vehicle
     while True:
+        print('Please enter "car" or "motorbike" and it is case-insensitive.')
         _vehicle = input("**Vehicle's type: ").lower()
         if _vehicle == "esc":
                 sys.exit("Successfully exit the program.")
@@ -55,16 +57,16 @@ def main():
     while True:
         cyl_vol = input("**Vehicle's cylinder volume (in cm^3): ")
         price = input("**The vehicle's price (tax not included) (in USD): ")
-        if len(power := input("The vehicle's power (in HP): ").strip()) < 1:
+        if len(power := input("The vehicle's power (in HP) (optional): ").strip()) < 1:
             power = None
-        if len(max_tor := input("The vehicle's max torsion: ").strip()) < 1:
+        if len(max_tor := input("The vehicle's max torsion (in rounds/min) (optional): ").strip()) < 1:
             max_tor = None
-        if len(mass := input("The vehicle's mass (in tons): ").strip()) < 1:
+        if len(mass := input("The vehicle's mass (in tons) (optional): ").strip()) < 1:
             mass = None
         if _vehicle == "car":
-            if len(passenger_capa := input("The car's capacity: ").strip()) < 1:
+            if len(passenger_capa := input("The car's capacity (optional): ").strip()) < 1:
                 passenger_capa = None
-            if len(max_load := input("The car's max load (in tons): ")) < 1:
+            if len(max_load := input("The car's max load (in tons) (optional): ")) < 1:
                 max_load = None
             try:
                 vehicle = Car(cyl_vol, price, max_tor, mass, power, max_load, passenger_capa, city)
@@ -82,11 +84,11 @@ def main():
     
     # Prompt the user for the feature they wish to use
     while True:
-        feat = input("""***********************
+        feat = input("""***********************************************************
 * Please input the following numbers corresponding to the features you want to use:
-0: Generate a random liscense plate.
-1: Check your desired liscense plate. Also type your liscense plate right next to the number 1.
-(PLease be aware of white spaces)
+0: Generate a random license plate.
+1: Check your desired license plate. Also type your license plate right next to the number 1.
+(PLease be aware of white spaces between the number 1 and the plate) (Sample Input: 1 29M-02453 or 1 29M 12341)
 2: Check the total value for registrating the vehicle.
 3: Check your vehicle's details.
 4: Exit the program.\nNumber: """).strip()
@@ -94,13 +96,12 @@ def main():
         if feat == "4":
             sys.exit("Thank you for using the product!")
         
-        if feat == '0':
+        elif feat == '0':
             print("Generating license plate.....")
             time.sleep(1)
             print(plate_gen_or_check(feat, vehicle))
-            continue
         
-        if feat.split(" ")[0] == '1':
+        elif feat.split(" ")[0] == '1':
             try:
                 if plate_gen_or_check('1', vehicle, feat.split(" ")[1]):
                     time.sleep(0.5)
@@ -108,29 +109,22 @@ def main():
                 else:
                     time.sleep(0.5)
                     print("Invalid")
-                    continue
             except IndexError:
                 print("Please also enter the desired license plate!")
-                continue
             except ValueError:
                 print("Not a valid plate! Please check your city number and seri!")
-                continue
         
-        if feat == "2":
+        elif feat == "2":
             if type(vehicle) is Car:
                 print(vehicle.get_tot_price_car())
             else:
                 print(vehicle.get_tot_price_motorbike())
-            continue
         
-        if feat == "3":
+        elif feat == "3":
             print(f"User: {name}\nType of vehicle: {_vehicle.capitalize()}{vehicle}")
-            time.sleep(0.5)
         
         else:
             print("Please enter a number!")
-            time.sleep(1)
-            continue
 
 
 def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
@@ -159,7 +153,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
         return f"Your license plate is: {city_num}{seri}-{plate_nums}"
     
     if index == "1":  # Check the wanted plate
-        if regis_plate := re.search(r"(^[1-9][1-9])([a-z][ab]?)-[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
+        if regis_plate := re.search(r"(^[1-9][1-9])([a-z][ab]?)(?:-| )[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
             if regis_plate.group(1) not in Vehicle.cities[vehicle.city]:  # Valid number corresponding to the city
                 raise ValueError("Not a valid city!")
             # Only motorbike with the engine's volume less than 50 would have the seri of AA or AB
