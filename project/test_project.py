@@ -1,4 +1,5 @@
 from vehicle import Car, Motorbike, Vehicle
+from project import plate_gen_or_check, check_age, regis_fee
 import pytest as pt
 
 

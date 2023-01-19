@@ -35,9 +35,6 @@ class Vehicle:
     - Mass: {self.mass} (tons)
     - Price: ${self.price}""".strip()
     
-    def __add__(self, object):
-        return f"The total price is: ${self.price + object.price}"
-    
     @property
     def power(self):
         return self._power
@@ -152,14 +149,6 @@ class Car(Vehicle):
             return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67:.2f}"
         elif self.city == "Hanoi" or self.city == "Ho Chi Minh City":
             return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]:.2f}"
-
-    def type_of_car(self):
-        if 2 <= float(self.pass_capacity) <= 7:
-            return "Family car"
-        elif 7 >= float(self.mass) >= 3:
-            return "Light commercial vehicle"
-        elif float(self.mass) > 7:
-            return "Heavy truck"
 
 
 class Motorbike(Vehicle):
