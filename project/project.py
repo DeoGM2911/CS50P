@@ -148,14 +148,6 @@ class Car(Vehicle):
         elif float(max_load) < 0:
             raise ValueError("Not a valid number!")
         self._max_load = max_load
-    
-    def get_tot_price_car(self):
-        if self.city not in Car.tax_regitration_fee.keys():
-            return f"Total: ${float(self.price) * 1.1 + 42.67:.2f}"
-        elif self.city in Car.tax_regitration_fee.keys() and self.city not in Car.tax_plate_regitration.keys():
-            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67:.2f}"
-        elif self.city == "Hanoi" or self.city == "Ho Chi Minh City":
-            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]:.2f}"
 
 
 class Motorbike(Vehicle):
@@ -164,14 +156,6 @@ class Motorbike(Vehicle):
     
     def __str__(self):
         return super().__str__()
-    
-    def get_tot_price_motorbike(self):
-        if float(self.price) < 639.66:
-            return f"Total: ${float(self.price) * 1.1 + 31.98:.2f}"
-        elif 1705.76 >= float(self.price) >= 639.66:
-            return f"Total: ${float(self.price) * 1.1 + 63.97:.2f}"
-        else:
-            return f"Total: ${float(self.price) * 1.1 + 127.93:.2f}"
     
     def type_motor(self):
         return float(self.cyl_capacity) > 50
@@ -271,7 +255,7 @@ def main():
         elif feat == '0':
             print("Generating license plate.....")
             time.sleep(1)
-            print(plate_gen_or_check(feat, vehicle))
+            print("Your license plate is: " + plate_gen_or_check(feat, vehicle))
         
         elif feat.split(" ")[0] == '1':
             try:
@@ -287,10 +271,7 @@ def main():
                 print("Not a valid plate! Please check your city number and seri!")
         
         elif feat == "2":
-            if type(vehicle) is Car:
-                print(vehicle.get_tot_price_car())
-            else:
-                print(vehicle.get_tot_price_motorbike())
+            print(regis_fee(vehicle))
         
         elif feat == "3":
             print(f"User: {name}\nType of vehicle: {_vehicle.capitalize()}\n{vehicle}")
@@ -322,7 +303,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
         else:
             seri = rd.choice(Vehicle.seri)
         city_num = rd.choice(Vehicle.cities[vehicle.city])
-        return f"Your license plate is: {city_num}{seri}-{plate_nums}"
+        return f"{city_num}{seri}-{plate_nums}"
     
     if index == "1":  # Check the wanted plate
         if regis_plate := re.search(r"(^[1-9][0-9])([a-z][ab]?)-[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
@@ -374,23 +355,29 @@ def check_age(dob):
     return (today - day).days <= 18 * 365  # Less than 18 year old
 
 
-def regis_fee(vehicle, prc, city):
+def regis_fee(vehicle):
     """Get the total price include tax of the vehicle
     
     Args:
-        vehicle (str): the type of vehicle (car or motorbike) 
-        prc (float): the price of the vehicle (tax not included) 
-        city (str): the name of the city where the vehicle is bought 
+        vehicle (Car|Motorbike): the type of vehicle (car or motorbike) 
 
     Returns:
         str: the formated string that show the total price of the vehicle
     """
     if type(vehicle) is Car:
-        # Only the price and city are needed so other params are 0
-        return Car(0, prc, None, None, None, None, city=city).get_tot_price_car()  
+        if vehicle.city not in Car.tax_regitration_fee.keys():
+            return f"Total: ${float(vehicle.price) * 1.1 + 42.67:.2f}"
+        elif vehicle.city in Car.tax_regitration_fee.keys() and vehicle.city not in Car.tax_plate_regitration.keys():
+            return f"Total: ${float(vehicle.price) * (1.1 + Car.tax_regitration_fee[vehicle.city]) + 42.67:.2f}"
+        elif vehicle.city == "Hanoi" or vehicle.city == "Ho Chi Minh City":
+            return f"Total: ${float(vehicle.price) * (1.1 + Car.tax_regitration_fee[vehicle.city]) + Car.tax_plate_regitration[vehicle.city]:.2f}"
     if type(vehicle) is Motorbike:
-        # Only the price is needed so other params are 0
-        return Motorbike(0, prc, None, None, None, city=city).get_tot_price_motorbike()  
+        if float(vehicle.price) < 639.66:
+            return f"Total: ${float(vehicle.price) * 1.1 + 31.98:.2f}"
+        elif 1705.76 >= float(vehicle.price) >= 639.66:
+            return f"Total: ${float(vehicle.price) * 1.1 + 63.97:.2f}"
+        else:
+            return f"Total: ${float(vehicle.price) * 1.1 + 127.93:.2f}"
 
 
 

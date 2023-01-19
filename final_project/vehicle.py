@@ -142,29 +142,12 @@ class Car(Vehicle):
             raise ValueError("Not a valid number!")
         self._max_load = max_load
     
-    def get_tot_price_car(self):
-        if self.city not in Car.tax_regitration_fee.keys():
-            return f"Total: ${float(self.price) * 1.1 + 42.67:.2f}"
-        elif self.city in Car.tax_regitration_fee.keys() and self.city not in Car.tax_plate_regitration.keys():
-            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + 42.67:.2f}"
-        elif self.city == "Hanoi" or self.city == "Ho Chi Minh City":
-            return f"Total: ${float(self.price) * (1.1 + Car.tax_regitration_fee[self.city]) + Car.tax_plate_regitration[self.city]:.2f}"
-
-
 class Motorbike(Vehicle):
     def __init__(self, cyl_capacity, price, max_torsion, mass, power, city="Hanoi") -> None:
         super().__init__(cyl_capacity, price, max_torsion, mass, power, city)
     
     def __str__(self):
         return super().__str__()
-    
-    def get_tot_price_motorbike(self):
-        if float(self.price) < 639.66:
-            return f"Total: ${float(self.price) * 1.1 + 31.98:.2f}"
-        elif 1705.76 >= float(self.price) >= 639.66:
-            return f"Total: ${float(self.price) * 1.1 + 63.97:.2f}"
-        else:
-            return f"Total: ${float(self.price) * 1.1 + 127.93:.2f}"
     
     def type_motor(self):
         return float(self.cyl_capacity) > 50
