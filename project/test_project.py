@@ -1,41 +1,37 @@
-from project import Car, Motorbike, Vehicle
+from project import Car, Motorbike
 from project import plate_gen_or_check, check_age, regis_fee
 import pytest as pt
 
 
 def test_init():
     with pt.raises(ValueError):
-        Car("two hundred", 21312, None, None, None, None)
-        Car(23, 21312, None, None, None, None, "two")
-        Car(23, 21321, None, None, None, None, city="Hanover")
-        Motorbike(50, "three thousand", None, None, None)
-        Motorbike(125, 21321, "eleven thousand", None, None)
+        Car("two hundred", 21312, "Hanoi")
+        Car(23, 21312, "two")
+        Car(23, 21321, city="Hanover")
+        Motorbike(50, "three thousand")
 
 
 def test_str():
-    car = Car(300, 21312, None, None, None, None)
+    car = Car(300, 21312)
     assert str(car) == f"""
 * Note: if the value is None, it means that you haven't provided the info.
 *** The vehicle's attributes are:
-    - Power: {car.power} (HP)
-    - Cylinder's Volume: {car.cyl_capacity} (cm^3)
-    - Max torsion: {car.max_tor} (rounds/min)
-    - Mass: {car.mass} (tons)
-    - Price: ${car.price}\n  - Capacity: {car.pass_capacity} people\n  - Max Load: {car.max_load} (tons)""".strip()
+    - Engine's volume: {car.cyl_capacity} (cm^3)
+    - Price: ${car.price}""".strip()
 
 
 def test_checked():
-    motor1 = Motorbike(125, 21321, None, None, None)
-    motor2 = Motorbike(50, 21321, None, None, None)
-    assert motor1.checked() is False
-    assert motor2.checked() is True
+    motor1 = Motorbike(125, 21321)
+    motor2 = Motorbike(50, 21321)
+    assert motor1.checked() is True
+    assert motor2.checked() is False
 
 
 def test_plate_gen_or_check():
     # Check mode 1
-    m = Motorbike(125, "600", None, None, None, city="Hanoi")
-    m1 = Motorbike(50, "600", None, None, None, city="Hanoi")
-    cr = Car(800, '10000', None, None, None, None, city="Hanoi")
+    m = Motorbike(125, 600, city="Hanoi")
+    m1 = Motorbike(50, 600, city="Hanoi")
+    cr = Car(800, 10000, city="Hanoi")
     assert plate_gen_or_check("1", m, "30M-12344") is True
     assert plate_gen_or_check("1", m1, "30AA-12344") is True
     with pt.raises(ValueError):
@@ -55,8 +51,8 @@ def test_plate_gen_or_check():
 
 def test_regis_fee():
     # get_tot_price_car() and get_tot_price_motorbike() have been tested in test_vehicle.py
-    c = Car(800, '10000', None, None, None, None, city="Hanoi")
-    m = Motorbike(125, "600", None, None, None, city="Ho Chi Minh City")
+    c = Car(800, 10000, city="Hanoi")
+    m = Motorbike(125, 600, city="Ho Chi Minh City")
     assert regis_fee(c) == "Total: $13053.33"
     assert regis_fee(m) == "Total: $691.98"
 
