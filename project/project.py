@@ -2,7 +2,6 @@ import re
 from datetime import date
 import sys
 import random as rd
-import time
 
 
 class Vehicle:
@@ -33,7 +32,7 @@ class Vehicle:
         return f"""
 * Note: if the value is None, it means that you haven't provided the info.
 *** The vehicle's attributes are:
-    - Power: {self.power} (HP)
+    - Engine's volume: {self.cyl_capacity} (HP)
     - Price: ${self.price}""".strip()
     
     @property
@@ -42,7 +41,9 @@ class Vehicle:
     
     @cyl_capacity.setter
     def cyl_capacity(self, cyl_capacity):
-        if float(cyl_capacity) < 0:
+        if type(cyl_capacity) is not float:
+            raise ValueError("Not a valid number!")
+        if cyl_capacity < 0:
             raise ValueError("Not a valid number!")
         self._cyl_capacity = cyl_capacity
     
@@ -52,7 +53,9 @@ class Vehicle:
     
     @price.setter
     def price(self, price):
-        if float(price) < 0:
+        if type(price) is not float:
+            raise ValueError("Not a valid number!")
+        if price < 0:
             raise ValueError("Not a valid number!")
         self._price = price
     
@@ -92,10 +95,10 @@ class Motorbike(Vehicle):
 
 
 def main():
-    print("Welcome!")
+    print("_" * 10, "Welcome", "_" * 10)
     print("This is the Vehicle program in which you can know the price and check/generate the license plate!")
     print("Enter esc in any question to escape the program!")
-    print("Please note that (**) indicates that the field is required!")
+    print("Please note that (**) indicates that the field is required!\n")
     
 	# Get the user's name
     name = input("(**) Name: ")
@@ -105,7 +108,7 @@ def main():
     # Check the age condition of the user
     while True:
         try:
-            print("The format for the DOB is DD/MM/YYYY or DD-MM-YYYY")
+            print("NOTE: The format for the DOB is DD/MM/YYYY or DD-MM-YYYY.")
             dob = input("(**) DOB: ")
             if dob == "esc":
                 sys.exit("Successfully exit the program.")
@@ -114,12 +117,12 @@ def main():
             else:
                 break
         except ValueError:
-            print("Invalid DOB! Please try again!")
+            print("Invalid DOB! Please try again!\n")
     
     # Get the user's city where he/she buys the vehicle
     while True:
         if (city := input("(**) Your city: ").strip().title()) not in Vehicle.cities:
-            print("Invalid city! Please try again!")
+            print("Invalid city! Please try again!\n")
             continue
         if city == "Esc":
             sys.exit("Successfully exit the program.")
@@ -136,38 +139,37 @@ def main():
         if _vehicle == "car" or _vehicle == "motorbike":
             break
         else:
-            print("Invalid type of vehicle! Please enter car or motorbike!")
+            print("Invalid type of vehicle! Please enter car or motorbike!\n")
     
     while True:
         try:
-            cyl_vol = input("(**) Vehicle's cylinder volume (in cm^3): ").lower()
+            cyl_vol = input("(**) Vehicle's engine volume (in cm^3): ").lower()
             if cyl_vol == "esc":
                 sys.exit("Successfully exit the program.")
-            
-            price = input("(**) The vehicle's price (tax not included) (in USD): ").lower()
+            cyl_volume = float(cyl_vol)
+        except ValueError:
+            print("Please check your vehicle's engine's volume!\n")
+            continue
+        try:
+            prc = input("(**) The vehicle's price (tax not included) (in USD): ").lower()
             if price == "esc":
                 sys.exit("Successfully exit the program.")
+            price = float(prc)
         except ValueError:
+            print("Please check your vehicle's attributes!\n")
             continue
         
         if _vehicle == "car":
-            try:
-                vehicle = Car(float(cyl_vol), float(price), city)
-                break
-            except ValueError:
-                print("Please check your vehicle's attributes!")
-                continue
+            vehicle = Car(cyl_volume, price, city)
+            break
         elif _vehicle == "motorbike":
-            try:
-                vehicle = Motorbike(float(cyl_vol), float(price), city)
-                break
-            except ValueError:
-                print("Please check your vehicle's attributes!")
-                continue
+            vehicle = Motorbike(cyl_volume, price, city)
+            break
     
     # Prompt the user for the feature they wish to use
     while True:
-        feat = input("""***********************************************************
+        feat = input("""
+***********************************************************
 * Please input the following numbers corresponding to the features you want to use:
 0: Generate a random license plate.
 1: Check your desired license plate. Input in the form of 1 LICENSEPLATE.(Sample Input: 1 29M-02453) 
