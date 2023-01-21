@@ -30,10 +30,10 @@ class Vehicle:
     
     def __str__(self):
         return f"""
-* Note: if the value is None, it means that you haven't provided the info.
 *** The vehicle's attributes are:
-    - Engine's volume: {self.cyl_capacity} (cm^3)
-    - Price: ${self.price}""".strip()
+- Engine's volume: {self.cyl_capacity} (cm^3)
+- Price: ${self.price}
+                """.strip()
     
     @property
     def cyl_capacity(self):
@@ -143,24 +143,25 @@ def main():
             if cyl_vol == "esc":
                 sys.exit("Successfully exit the program.")
             cyl_volume = float(cyl_vol)
+            break
         except ValueError:
             print("\n*Please check your vehicle's engine's volume!\n")
             continue
+    while True:
         try:
             prc = input("(**) The vehicle's price (tax not included) (in USD): ").lower()
             if prc == "esc":
                 sys.exit("Successfully exit the program.")
             price = float(prc)
+            break
         except ValueError:
             print("\n*Please check your vehicle's attributes!\n")
             continue
         
-        if _vehicle == "car":
-            vehicle = Car(cyl_volume, price, city)
-            break
-        elif _vehicle == "motorbike":
-            vehicle = Motorbike(cyl_volume, price, city)
-            break
+    if _vehicle == "car":
+        vehicle = Car(cyl_volume, price, city)
+    elif _vehicle == "motorbike":
+        vehicle = Motorbike(cyl_volume, price, city)
     
     # Prompt the user for the feature they wish to use
     while True:
@@ -186,12 +187,10 @@ def main():
             try:
                 if plate_gen_or_check('1', vehicle, feat.split(" ")[1]):
                     print("____This is a valid plate!____")
-                else:
-                    print("____This is an invalid plate!____")
             except IndexError:
-                print("\nPlease also enter the desired license plate!\n")
+                print("\nPlease also enter the desired license plate!")
             except ValueError:
-                print("\nNot a valid plate! Please check your city number and seri!\n")
+                print("\n____This is an invalid plate!____\n*Please check your city number and seri!\n")
         
         elif feat == "2":
             if type(vehicle) is Car:
@@ -203,14 +202,23 @@ def main():
                     plate_fee = Car.tax_plate_regitration[vehicle.city]
                 else:
                     plate_fee = 42.67
+            else:
+                if vehicle.price < 639.66:
+                    plate_fee = 31.98
+                elif 1705.76 >= vehicle.price >= 639.66:
+                    plate_fee = 63.97
+                else:
+                    plate_fee = 127.93
+                veh_regis_fee = 0
+                
             print("_" * 20, "Price", "_" * 20, sep="")
             print(regis_fee(vehicle))
             print(f"""
-The components are:
-Original price: {vehicle.price}
+- The components are:
+Original price: ${vehicle.price}
 VAT Tax: 10%
 Registrating fee: {veh_regis_fee:.1%}
-Plate registration fee: {plate_fee:.2f}""").strip()
+Plate registration fee: ${plate_fee:.2f}""".strip())
         
         elif feat == "3":
             print(f"\nUser: {name}\nDate of birth: {dob}\nType of vehicle: {_vehicle.capitalize()}\n{vehicle}")
