@@ -24,12 +24,9 @@ class Vehicle:
     
     seri = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z']
     
-    def __init__(self, cyl_capacity, price, max_torsion, mass, power, city="Hanoi") -> None:
+    def __init__(self, cyl_capacity: float, price: float, city: str="Hanoi") -> None:
         self.cyl_capacity = cyl_capacity  # the vehicle's engine's capacity in cm^3
         self.price = price  # tax-not-included price in USD
-        self.max_tor = max_torsion  # the maximum torsion of the vehicle in rounds/min
-        self.mass = mass  # The vehicle's mass in kg
-        self.power = power  # The vehicle's power in Horse Power or HP
         self.city = city
     
     def __str__(self):
@@ -37,22 +34,7 @@ class Vehicle:
 * Note: if the value is None, it means that you haven't provided the info.
 *** The vehicle's attributes are:
     - Power: {self.power} (HP)
-    - Cylinder's Volume: {self.cyl_capacity} (cm^3)
-    - Max torsion: {self.max_tor} (rounds/min)
-    - Mass: {self.mass} (tons)
     - Price: ${self.price}""".strip()
-    
-    @property
-    def power(self):
-        return self._power
-    
-    @power.setter
-    def power(self, power):
-        if power is None:
-            pass
-        elif float(power) < 0:
-            raise ValueError("Not a valid number!")
-        self._power = power
     
     @property
     def cyl_capacity(self):
@@ -63,30 +45,6 @@ class Vehicle:
         if float(cyl_capacity) < 0:
             raise ValueError("Not a valid number!")
         self._cyl_capacity = cyl_capacity
-    
-    @property
-    def max_tor(self):
-        return self._max_torsion
-    
-    @max_tor.setter
-    def max_tor(self, max_torsion):
-        if max_torsion is None:
-            pass
-        elif float(max_torsion) < 0:
-            raise ValueError("Not a valid number!")
-        self._max_torsion = max_torsion
-    
-    @property
-    def mass(self):
-        return self._mass
-    
-    @mass.setter
-    def mass(self, mass):
-        if mass is None:
-            pass
-        elif float(mass) < 0:
-            raise ValueError("Not a valid number!")
-        self._mass = mass
     
     @property
     def price(self):
@@ -107,9 +65,6 @@ class Vehicle:
         if city not in Vehicle.cities.keys():
             raise ValueError("City not found!")
         self._city = city
-    
-    def checked(self):  # Mostly used by the motorbike subclass
-        return float(self.cyl_capacity) <= 50
 
 
 class Car(Vehicle):
@@ -117,57 +72,33 @@ class Car(Vehicle):
     tax_regitration_fee = {"Hanoi": 0.12, "Danang": 0.12, "Haiphong": 0.12, "Ho Chi Minh City": 0.1, "Cantho": 0.1}
     # the VAT tax is 10% for all products
     
-    def __init__(self, cyl_capacity, price, max_torsion, mass, power, max_load, pass_capacity=4, city="Hanoi"):
-        super().__init__(cyl_capacity, price, max_torsion, mass, power, city)
-        self.pass_capacity = pass_capacity  # The maximum passengers the car can have
-        self.max_load = max_load  # The maximum load in tons
+    def __init__(self, cyl_capacity: float, price: float, city: str="Hanoi"):
+        super().__init__(cyl_capacity, price, city)
     
     def __str__(self):
-        return f"{super().__str__()}\n  - Capacity: {self.pass_capacity} people\n  - Max Load: {self.max_load} (tons)"
-    
-    @property
-    def pass_capacity(self):
-        return self._pass_capa
-    
-    @pass_capacity.setter
-    def pass_capacity(self, pass_capacity):
-        if pass_capacity is None:
-            pass
-        elif float(pass_capacity) < 2:
-            raise ValueError("Not a valid capacity!")
-        self._pass_capa = pass_capacity
-    
-    @property
-    def max_load(self):
-        return self._max_load
-    
-    @max_load.setter
-    def max_load(self, max_load):
-        if max_load is None:
-            pass
-        elif float(max_load) < 0:
-            raise ValueError("Not a valid number!")
-        self._max_load = max_load
+        return super().__str__()
 
 
 class Motorbike(Vehicle):
-    def __init__(self, cyl_capacity, price, max_torsion, mass, power, city="Hanoi") -> None:
-        super().__init__(cyl_capacity, price, max_torsion, mass, power, city)
+    def __init__(self, cyl_capacity: float, price: float, city: str="Hanoi") -> None:
+        super().__init__(cyl_capacity, price, city)
     
     def __str__(self):
         return super().__str__()
     
     def type_motor(self):
-        return float(self.cyl_capacity) > 50
+        return self.cyl_capacity > 50
+    
 
 
 def main():
-    print("- If you don'd know the info, please enter and skip the prompt!")
-    print("- Enter esc to escape the program!")
-    print("** indicates that the field is required!")
+    print("Welcome!")
+    print("This is the Vehicle program in which you can know the price and check/generate the license plate!")
+    print("Enter esc in any question to escape the program!")
+    print("Please note that (**) indicates that the field is required!")
     
 	# Get the user's name
-    name = input("**Name: ")
+    name = input("(**) Name: ")
     if name == "esc":
         sys.exit("Successfully exit the program.")
     
@@ -175,20 +106,19 @@ def main():
     while True:
         try:
             print("The format for the DOB is DD/MM/YYYY or DD-MM-YYYY")
-            qualified = input("**DOB: ")
-            if qualified == "esc":
+            dob = input("(**) DOB: ")
+            if dob == "esc":
                 sys.exit("Successfully exit the program.")
-            if check_age(qualified):
+            if check_age(dob=dob):
                 sys.exit("You are not old enough to buy a vehicle!")
             else:
                 break
         except ValueError:
             print("Invalid DOB! Please try again!")
-            continue
     
     # Get the user's city where he/she buys the vehicle
     while True:
-        if (city := input("**Your city: ").strip().title()) not in Vehicle.cities:
+        if (city := input("(**) Your city: ").strip().title()) not in Vehicle.cities:
             print("Invalid city! Please try again!")
             continue
         if city == "Esc":
@@ -199,7 +129,7 @@ def main():
     # Get the attributes of the vehicle
     while True:
         print('Please enter "car" or "motorbike" and it is case-insensitive.')
-        _vehicle = input("**Vehicle's type: ").lower()
+        _vehicle = input("(**) Vehicle's type: ").lower()
         if _vehicle == "esc":
                 sys.exit("Successfully exit the program.")
     
@@ -207,32 +137,29 @@ def main():
             break
         else:
             print("Invalid type of vehicle! Please enter car or motorbike!")
-            continue
     
     while True:
-        cyl_vol = input("**Vehicle's cylinder volume (in cm^3): ")
-        price = input("**The vehicle's price (tax not included) (in USD): ")
-        print("The fields below are optional! Press Enter to skip!")
-        if len(power := input("The vehicle's power (in HP) (optional): ").strip()) < 1:
-            power = None
-        if len(max_tor := input("The vehicle's max torsion (in rounds/min) (optional): ").strip()) < 1:
-            max_tor = None
-        if len(mass := input("The vehicle's mass (in tons) (optional): ").strip()) < 1:
-            mass = None
+        try:
+            cyl_vol = input("(**) Vehicle's cylinder volume (in cm^3): ").lower()
+            if cyl_vol == "esc":
+                sys.exit("Successfully exit the program.")
+            
+            price = input("(**) The vehicle's price (tax not included) (in USD): ").lower()
+            if price == "esc":
+                sys.exit("Successfully exit the program.")
+        except ValueError:
+            continue
+        
         if _vehicle == "car":
-            if len(passenger_capa := input("The car's capacity (optional): ").strip()) < 1:
-                passenger_capa = None
-            if len(max_load := input("The car's max load (in tons) (optional): ")) < 1:
-                max_load = None
             try:
-                vehicle = Car(cyl_vol, price, max_tor, mass, power, max_load, passenger_capa, city)
+                vehicle = Car(float(cyl_vol), float(price), city)
                 break
             except ValueError:
                 print("Please check your vehicle's attributes!")
                 continue
         elif _vehicle == "motorbike":
             try:
-                vehicle = Motorbike(cyl_vol, price, max_tor, mass, power, city)
+                vehicle = Motorbike(float(cyl_vol), float(price), city)
                 break
             except ValueError:
                 print("Please check your vehicle's attributes!")
@@ -243,28 +170,27 @@ def main():
         feat = input("""***********************************************************
 * Please input the following numbers corresponding to the features you want to use:
 0: Generate a random license plate.
-1: Check your desired license plate. Also type your license plate right next to the number 1.
-(PLease be aware of white spaces between the number 1 and the license plate) (Sample Input: 1 29M-02453)
+1: Check your desired license plate. Input in the form of 1 LICENSEPLATE.(Sample Input: 1 29M-02453) 
+(Be aware of white spaces between the number 1 and the license plate)
 2: Check the total value for registrating the vehicle.
 3: Check your vehicle's details.
-4: Exit the program.\nNumber: """).strip()
+4: Exit the program.
+***********************************************************\nNumber: """).strip()
         
         if feat == "4":
             sys.exit("Thank you for using the product!")
         
         elif feat == '0':
-            print("Generating license plate.....")
+            print("PLease wait! Generating license plate.....")
             time.sleep(1)
-            print("Your license plate is: " + plate_gen_or_check(feat, vehicle))
+            print("Your license plate is: ", plate_gen_or_check(feat, vehicle))
         
         elif feat.split(" ")[0] == '1':
             try:
                 if plate_gen_or_check('1', vehicle, feat.split(" ")[1]):
-                    time.sleep(0.5)
-                    print("Valid")
+                    print("____This is a valid plate!____")
                 else:
-                    time.sleep(0.5)
-                    print("Invalid")
+                    print("____This is an invalid plate!____")
             except IndexError:
                 print("Please also enter the desired license plate!")
             except ValueError:
@@ -272,9 +198,10 @@ def main():
         
         elif feat == "2":
             print(regis_fee(vehicle))
+            print("The components are:")
         
         elif feat == "3":
-            print(f"User: {name}\nType of vehicle: {_vehicle.capitalize()}\n{vehicle}")
+            print(f"User: {name}\nDate of birth: {dob}\nType of vehicle: {_vehicle.capitalize()}\n{vehicle}")
         
         else:
             print("Please enter a number!")
