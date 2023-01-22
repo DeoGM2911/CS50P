@@ -9,15 +9,16 @@ def test_init():
         Car(23, 21312, "two")
         Car(23, 21321, city="Hanover")
         Motorbike(50, "three thousand")
+        Car(-1, 2123)
+        Car(321, -21321)
 
 
 def test_str():
     car = Car(300, 21312)
     assert str(car) == f"""
-* Note: if the value is None, it means that you haven't provided the info.
 *** The vehicle's attributes are:
-    - Engine's volume: {car.cyl_capacity} (cm^3)
-    - Price: ${car.price}""".strip()
+- Engine's volume: {car.cyl_capacity} (cm^3)
+- Price: ${car.price}""".strip()
 
 
 def test_checked():

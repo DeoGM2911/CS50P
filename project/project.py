@@ -142,22 +142,25 @@ def main():
             cyl_vol = input("(**) Vehicle's engine volume (in cm^3): ").lower()
             if cyl_vol == "esc":
                 sys.exit("Successfully exit the program.")
-            cyl_volume = float(cyl_vol)
+            if (cyl_volume := float(cyl_vol)) < 0:
+                print("\n*Please check your vehicle's engine's volume!\n")
+                continue
             break
         except ValueError:
             print("\n*Please check your vehicle's engine's volume!\n")
-            continue
+    
     while True:
         try:
             prc = input("(**) The vehicle's price (tax not included) (in USD): ").lower()
             if prc == "esc":
                 sys.exit("Successfully exit the program.")
-            price = float(prc)
+            if (price := float(prc)) < 0:
+                print("\n*Please check your vehicle's attributes!\n")
+                continue
             break
         except ValueError:
             print("\n*Please check your vehicle's attributes!\n")
-            continue
-        
+    
     if _vehicle == "car":
         vehicle = Car(cyl_volume, price, city)
     elif _vehicle == "motorbike":
