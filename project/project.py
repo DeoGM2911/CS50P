@@ -67,8 +67,8 @@ class Vehicle:
 
 
 class Car(Vehicle):
-    tax_plate_regitration = {"Hanoi": 853.33, "Ho Chi Minh City": 469.33}  # other cities/provinces correspond to $42.67
-    tax_regitration_fee = {"Hanoi": 0.12, "Danang": 0.12, "Haiphong": 0.12, "Ho Chi Minh City": 0.1, "Cantho": 0.1}
+    tax_plate_regis = {"Hanoi": 853.33, "Ho Chi Minh City": 469.33}  # other cities/provinces correspond to $42.67
+    tax_regis_per = {"Hanoi": 0.12, "Danang": 0.12, "Haiphong": 0.12, "Ho Chi Minh City": 0.1, "Cantho": 0.1}
     # the VAT tax is 10% for all products
     
     def __init__(self, cyl_capacity: float|int, price: float|int, city: str="Hanoi"):
@@ -97,16 +97,14 @@ def main():
     print("Please note that (**) indicates that the field is required!\n")
     
 	# Get the user's name
-    name = input("(**) Name: ")
-    if name == "esc":
+    if (name := input("(**) Name: ")) == "esc":
         sys.exit("Successfully exit the program.")
     
     # Check the age condition of the user
     while True:
         try:
             print("NOTE: The format for the DOB is DD/MM/YYYY or DD-MM-YYYY.")
-            dob = input("(**) DOB: ")
-            if dob == "esc":
+            if (dob := input("(**) DOB: ")) == "esc":
                 sys.exit("Successfully exit the program.")
             if check_age(dob=dob):
                 sys.exit("You are not old enough to buy a vehicle!")
@@ -128,8 +126,7 @@ def main():
     # Get the attributes of the vehicle
     while True:
         print('Please enter "car" or "motorbike" and it is case-insensitive.')
-        _vehicle = input("(**) Vehicle's type: ").lower()
-        if _vehicle == "esc":
+        if (_vehicle := input("(**) Vehicle's type: ").lower()) == "esc":
                 sys.exit("Successfully exit the program.")
     
         if _vehicle == "car" or _vehicle == "motorbike":
@@ -139,8 +136,7 @@ def main():
     
     while True:
         try:
-            cyl_vol = input("(**) Vehicle's engine volume (in cm^3): ").lower()
-            if cyl_vol == "esc":
+            if (cyl_vol := input("(**) Vehicle's engine volume (in cm^3): ").lower()) == "esc":
                 sys.exit("Successfully exit the program.")
             if (cyl_volume := float(cyl_vol)) < 0:
                 print("\n*Please check your vehicle's engine's volume!\n")
@@ -151,8 +147,7 @@ def main():
     
     while True:
         try:
-            prc = input("(**) The vehicle's price (tax not included) (in USD): ").lower()
-            if prc == "esc":
+            if (prc := input("(**) The vehicle's price (tax not included) (in USD): ").lower()) == "esc":
                 sys.exit("Successfully exit the program.")
             if (price := float(prc)) < 0:
                 print("\n*Please check your vehicle's attributes!\n")
@@ -197,12 +192,12 @@ def main():
         
         elif feat == "2":
             if type(vehicle) is Car:
-                if vehicle.city in Car.tax_regitration_fee:
-                    veh_regis_fee = Car.tax_regitration_fee[vehicle.city]
+                if vehicle.city in Car.tax_regis_per:
+                    veh_regis_fee = Car.tax_regis_per[vehicle.city]
                 else:
                     veh_regis_fee = 0
-                if vehicle.city in Car.tax_plate_regitration:
-                    plate_fee = Car.tax_plate_regitration[vehicle.city]
+                if vehicle.city in Car.tax_plate_regis:
+                    plate_fee = Car.tax_plate_regis[vehicle.city]
                 else:
                     plate_fee = 42.67
             else:
@@ -315,12 +310,12 @@ def regis_fee(vehicle: Car|Motorbike):
         str: the formated string that show the total price of the vehicle
     """
     if type(vehicle) is Car:
-        if vehicle.city not in Car.tax_regitration_fee.keys():
+        if vehicle.city not in Car.tax_regis_per.keys():
             return f"Total: ${vehicle.price * 1.1 + 42.67:.2f}"
-        elif vehicle.city in Car.tax_regitration_fee.keys() and vehicle.city not in Car.tax_plate_regitration.keys():
-            return f"Total: ${vehicle.price * (1.1 + Car.tax_regitration_fee[vehicle.city]) + 42.67:.2f}"
+        elif vehicle.city in Car.tax_regis_per.keys() and vehicle.city not in Car.tax_plate_regis.keys():
+            return f"Total: ${vehicle.price * (1.1 + Car.tax_regis_per[vehicle.city]) + 42.67:.2f}"
         elif vehicle.city == "Hanoi" or vehicle.city == "Ho Chi Minh City":
-            return f"Total: ${vehicle.price * (1.1 + Car.tax_regitration_fee[vehicle.city]) + Car.tax_plate_regitration[vehicle.city]:.2f}"
+            return f"Total: ${vehicle.price * (1.1 + Car.tax_regis_per[vehicle.city]) + Car.tax_plate_regis[vehicle.city]:.2f}"
     if type(vehicle) is Motorbike:
         if float(vehicle.price) < 639.66:
             return f"Total: ${vehicle.price * 1.1 + 31.98:.2f}"
