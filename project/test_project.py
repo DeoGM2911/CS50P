@@ -40,9 +40,9 @@ def test_plate_gen_or_check():
     with pt.raises(ValueError):
         plate_gen_or_check("1", m, "30AB-21321")
         plate_gen_or_check("1", m, "36A-25341")
-        plate_gen_or_check("1", m, "21Q-321033")
+        plate_gen_or_check("1", m, "21Q 321033")
         plate_gen_or_check("1", m, "10A-21301")
-        plate_gen_or_check("1", cr, "32AB-21903")
+        plate_gen_or_check("1", cr, "32AB 21903")
     # Check mode 0
     plate = plate_gen_or_check("0", m1)
     assert "-" in plate
