@@ -2,6 +2,8 @@ import re
 from datetime import date
 import sys
 import random as rd
+from tabulate import tabulate
+import keyboard
 
 
 class Vehicle:
@@ -29,11 +31,10 @@ class Vehicle:
         self.city = city
     
     def __str__(self):
+        attrs = [["Engine's volume", f"{self.cyl_capacity:.2f} cm^3"], ["Price", f"${self.price:.2f}"]]
         return f"""
-*** The vehicle's attributes are:
-- Engine's volume: {self.cyl_capacity} (cm^3)
-- Price: ${self.price}
-                """.strip()
+________________The vehicle's attributes_______________
+{tabulate(attrs, headers=["Attribute", "Value"], tablefmt="grid", numalign="center")}""".strip()
     
     @property
     def cyl_capacity(self):
@@ -91,20 +92,23 @@ class Motorbike(Vehicle):
 
 
 def main():
-    print("_" * 20, "Welcome", "_" * 20, sep="")
+    print("_" * 22, "Welcome", "_" * 22, sep="")
     print("This is the Vehicle program in which you can know the price and check/generate the license plate!")
     print("Enter esc in any question to escape the program!")
-    print("Please note that (**) indicates that the field is required!\n")
+    print("Please note that (**) indicates that the field is required!")
+    print("Press Space to continue!")
+    print("_" * 51)
+    keyboard.wait("space")
     
 	# Get the user's name
-    if (name := input("(**) Name: ")) == "esc":
+    if (name := input("(**) Name:").strip()).lower() == "esc":
         sys.exit("Successfully exit the program.")
     
     # Check the age condition of the user
     while True:
         try:
             print("NOTE: The format for the DOB is DD/MM/YYYY or DD-MM-YYYY.")
-            if (dob := input("(**) DOB: ")) == "esc":
+            if (dob := input("(**) DOB: ")).lower() == "esc":
                 sys.exit("Successfully exit the program.")
             if check_age(dob=dob):
                 sys.exit("You are not old enough to buy a vehicle!")
@@ -166,64 +170,59 @@ def main():
         feat = input("""
 ***********************************************************
 * Please input the following numbers corresponding to the features you want to use:
-0: Generate a random license plate.
-1: Check your desired license plate. Input in the form of 1 LICENSEPLATE.(Sample Input: 1 29M-02453) 
-(Be aware of white spaces between the number 1 and the license plate)
-2: Check the total value for registrating the vehicle.
-3: Check your vehicle's details.
-4: Exit the program.
-***********************************************************\nNumber: """).strip()
+(0): Generate a random license plate.
+(1): Check your desired license plate.(PLease only input 1 then Enter) 
+(2): Check the total value for registrating the vehicle.
+(3): Check the details.
+(4): Exit the program.
+***********************************************************
+Number: """).strip()
         
         if feat == "4":
             sys.exit("\nThank you for using the product!")
         
         elif feat == '0':
             print("\nPLease wait! Generating license plate.....")
-            print("Your license plate is: ", plate_gen_or_check(feat, vehicle))
+            print("Your license plate is: ", plate_gen_or_check(feat, vehicle), sep="")
+            print("Press Space to continue!")
+            keyboard.wait("space")
         
-        elif feat.split(" ")[0] == '1':
+        elif feat == '1':
+            print("Examples for accepted input: 29A-21321 or 29A 21321.", 
+            "Note 1: The seri (the letter) is AA (or AB) for motorbike having engine's volume fewer than 50 cm^3.",
+            "Note 2: The first two number range from 10 to 99.",
+            sep="\n")
             try:
-                if plate_gen_or_check('1', vehicle, feat.split(" ")[1]):
+                plate = input("**Your desired plate: ").strip()
+                if plate_gen_or_check('1', vehicle, plate):
                     print("____This is a valid plate!____")
+                    print("Press Space to continue!")
+                    keyboard.wait("space")
             except IndexError:
                 print("\nPlease also enter the desired license plate!")
+                print("Press Space to continue!")
+                keyboard.wait("space")
             except ValueError:
                 print("\n____This is an invalid plate!____\n*Please check your city number and seri!\n")
+                print("Press Space to continue!")
+                keyboard.wait("space")
         
         elif feat == "2":
-            if type(vehicle) is Car:
-                if vehicle.city in Car.tax_regis_per:
-                    veh_regis_fee = Car.tax_regis_per[vehicle.city]
-                else:
-                    veh_regis_fee = 0
-                if vehicle.city in Car.tax_plate_regis:
-                    plate_fee = Car.tax_plate_regis[vehicle.city]
-                else:
-                    plate_fee = 42.67
-            else:
-                if vehicle.price < 639.66:
-                    plate_fee = 31.98
-                elif 1705.76 >= vehicle.price >= 639.66:
-                    plate_fee = 63.97
-                else:
-                    plate_fee = 127.93
-                veh_regis_fee = 0
-                
-            print("_" * 20, "Price", "_" * 20, sep="")
+            print("_" * 25, "Price", "_" * 25, sep="")
             print(regis_fee(vehicle))
-            print(f"""
-- The components are:
-Original price: ${vehicle.price}
-VAT Tax: 10%
-Registrating fee: {veh_regis_fee:.1%}
-Plate registration fee: ${plate_fee:.2f}""".strip())
+            print("Press Space to continue!")
+            keyboard.wait("space")
         
         elif feat == "3":
-            print(f"\nUser: {name}\nDate of birth: {dob}\nType of vehicle: {_vehicle.capitalize()}\n{vehicle}")
-        
+            print("_" * 20, "Details", "_" * 20, sep="")
+            print(f"- User: {name}\n- Date of birth: {dob}\n- Type of vehicle: {_vehicle.capitalize()}\n\n{vehicle}")
+            print("Press Space to continue!")
+            keyboard.wait("space")
+            
         else:
-            print("Please enter a number!\n")
-
+            print("*Please enter a number!\n")
+            print("Press Space to continue!")
+            keyboard.wait("space")
 
 def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
     """Return a license plate or check whether a license plate is valid
@@ -231,7 +230,8 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
     Args:
         index (str): decide which mode the function would work (0 or 1)
         vehicle (Car or Motorbike): the class of the registered vehicle
-        plate (str, optional): The plate number to check. Defaults to "29AA-51935".
+        plate (str, optional): The plate number to check.
+                            Defaults to "29AA-51935". (the dash - can be replaced by a space)
 
     Raises:
         ValueError: if the plate isn't valid.
@@ -251,7 +251,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
         return f"{city_num}{seri}-{plate_nums}"
     
     if index == "1":  # Check the wanted plate
-        if regis_plate := re.search(r"(^[1-9][0-9])([a-z][ab]?)-[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
+        if regis_plate := re.search(r"(^[1-9][0-9])([a-z][ab]?)(?:-| )[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
             if regis_plate.group(1) == "10":
                 raise ValueError("Not a valid starting number!")
             if regis_plate.group(1) not in Vehicle.cities[vehicle.city]:  # Valid number corresponding to the city
@@ -279,8 +279,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
 
 
 def check_age(dob: str):
-    """_summary_
-
+    """Validate the age of the user
     Args:
         dob (str): the date of birth. Accepted format: DD/MM/YYYY or DD-MM-YYYY
     
@@ -301,29 +300,55 @@ def check_age(dob: str):
 
 
 def regis_fee(vehicle: Car|Motorbike):
-    """Get the total price include tax of the vehicle
+    """Get the price (include components) of the vehicle
     
     Args:
         vehicle (Car|Motorbike): the type of vehicle (car or motorbike) 
 
     Returns:
-        str: the formated string that show the total price of the vehicle
+        str: the formated table that show the total price and all contributions of the price of the vehicle
     """
     if type(vehicle) is Car:
-        if vehicle.city not in Car.tax_regis_per.keys():
-            return f"Total: ${vehicle.price * 1.1 + 42.67:.2f}"
-        elif vehicle.city in Car.tax_regis_per.keys() and vehicle.city not in Car.tax_plate_regis.keys():
-            return f"Total: ${vehicle.price * (1.1 + Car.tax_regis_per[vehicle.city]) + 42.67:.2f}"
-        elif vehicle.city == "Hanoi" or vehicle.city == "Ho Chi Minh City":
-            return f"Total: ${vehicle.price * (1.1 + Car.tax_regis_per[vehicle.city]) + Car.tax_plate_regis[vehicle.city]:.2f}"
-    if type(vehicle) is Motorbike:
-        if float(vehicle.price) < 639.66:
-            return f"Total: ${vehicle.price * 1.1 + 31.98:.2f}"
-        elif 1705.76 >= float(vehicle.price) >= 639.66:
-            return f"Total: ${vehicle.price * 1.1 + 63.97:.2f}"
+        # Get the components
+        if vehicle.city in Car.tax_regis_per:
+            veh_regis_fee = Car.tax_regis_per[vehicle.city]
         else:
-            return f"Total: ${vehicle.price * 1.1 + 127.93:.2f}"
-
+            veh_regis_fee = 0
+        if vehicle.city in Car.tax_plate_regis:
+            plate_fee = Car.tax_plate_regis[vehicle.city]
+        else:
+            plate_fee = 42.67
+        
+        # Get the total price
+        if vehicle.city not in Car.tax_regis_per.keys():
+            tot = f"{vehicle.price * 1.1 + 42.67:.2f}"
+        elif vehicle.city in Car.tax_regis_per.keys() and vehicle.city not in Car.tax_plate_regis.keys():
+            tot = f"{vehicle.price * (1.1 + Car.tax_regis_per[vehicle.city]) + 42.67:.2f}"
+        elif vehicle.city == "Hanoi" or vehicle.city == "Ho Chi Minh City":
+            tot = f"{vehicle.price * (1.1 + Car.tax_regis_per[vehicle.city]) + Car.tax_plate_regis[vehicle.city]:.2f}"
+    
+    if type(vehicle) is Motorbike:
+        # Get the components
+        if vehicle.price < 639.66:
+            plate_fee = 31.98
+        elif 1705.76 >= vehicle.price >= 639.66:
+            plate_fee = 63.97
+        else:
+            plate_fee = 127.93
+        veh_regis_fee = 0
+        
+        # Get the total price
+        if float(vehicle.price) < 639.66:
+            tot = f"{vehicle.price * 1.1 + 31.98:.2f}"
+        elif 1705.76 >= float(vehicle.price) >= 639.66:
+            tot = f"{vehicle.price * 1.1 + 63.97:.2f}"
+        else:
+            tot = f"{vehicle.price * 1.1 + 127.93:.2f}"
+    
+    table = [["Original price", f"${vehicle.price:.2f}"], ["VAT Tax (10%)", f"${vehicle.price * 0.1:.2f}"],
+            [f"Registrating fee ({veh_regis_fee:.1%})", f"${vehicle.price * veh_regis_fee:.2f}"],
+            ["Plate registration fee", f"${plate_fee:.2f}"], ["Total", f"${tot}"]]
+    return tabulate(table, headers=["Price Component", "Value"], tablefmt="grid", numalign="center")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 from project import Car, Motorbike
 from project import plate_gen_or_check, check_age, regis_fee
 import pytest as pt
+from tabulate import tabulate
 
 
 def test_init():
@@ -15,10 +16,10 @@ def test_init():
 
 def test_str():
     car = Car(300, 21312)
+    attrs = [["Engine's volume", f"{car.cyl_capacity:.2f} cm^3"], ["Price", f"${car.price:.2f}"]]
     assert str(car) == f"""
-*** The vehicle's attributes are:
-- Engine's volume: {car.cyl_capacity} (cm^3)
-- Price: ${car.price}""".strip()
+________________The vehicle's attributes_______________
+{tabulate(attrs, headers=["Attribute", "Value"], tablefmt="grid")}""".strip()
 
 
 def test_checked():
@@ -35,6 +36,7 @@ def test_plate_gen_or_check():
     cr = Car(800, 10000, city="Hanoi")
     assert plate_gen_or_check("1", m, "30M-12344") is True
     assert plate_gen_or_check("1", m1, "30AA-12344") is True
+    assert plate_gen_or_check("1", m, "30M 12344") is True
     with pt.raises(ValueError):
         plate_gen_or_check("1", m, "30AB-21321")
         plate_gen_or_check("1", m, "36A-25341")
@@ -54,8 +56,14 @@ def test_regis_fee():
     # get_tot_price_car() and get_tot_price_motorbike() have been tested in test_vehicle.py
     c = Car(800, 10000, city="Hanoi")
     m = Motorbike(125, 600, city="Ho Chi Minh City")
-    assert regis_fee(c) == "Total: $13053.33"
-    assert regis_fee(m) == "Total: $691.98"
+    table1 = [["Original price", "$10000.00"], ["VAT Tax (10%)", "$1000.00"],
+            ["Registrating fee (12.0%)", "$1200.00"],
+            ["Plate registration fee", "$853.33"], ["Total", "$13053.33"]]
+    regis_fee(c) == tabulate(table1, headers=["Price Component", "Value"], tablefmt="grid", numalign="center")
+    table2 = [["Original price", "$600.00"], ["VAT Tax (10%)", "$60.00"],
+            ["Registrating fee (0.0%)", "$0.00"],
+            ["Plate registration fee", "$31.98"], ["Total", "$691.98"]]
+    regis_fee(m) == tabulate(table2, headers=["Price Component", "Value"], tablefmt="grid", numalign="center")
 
 
 def test_check_age():
