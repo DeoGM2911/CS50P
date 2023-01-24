@@ -60,7 +60,8 @@ ________________The vehicle's attributes_______________
 def checked(self):
     return self.cyl_capacity > 50
 ```
-__Notes__: Other attributes/properties of car and motorbikes weren't included as they are redundant in the program.
+__Notes 1__: Other attributes/properties of car and motorbikes weren't included as they are redundant in the program.
+__Notes 2__: The class Car and Motorbike can actually be deleted as only 1 additional method is added. However, to explicitly distinguish the different taxes and fees that are implied on cars and motorbikes in Vietnam, I decided to create the two class *Car* and *Motorbike*  
 
 ##### 2.2.2 The functions implemented in the program
 - Four functions are implemented in project.py.
