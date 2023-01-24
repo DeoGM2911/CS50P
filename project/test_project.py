@@ -46,9 +46,9 @@ def test_plate_gen_or_check():
     # Check mode 0
     plate = plate_gen_or_check("0", m1)
     assert "-" in plate
-    assert plate[:2] in Motorbike.cities["Hanoi"]
+    assert plate[:2] in Motorbike.CITIES["Hanoi"]
     assert plate[2:4] in ["AA", "AB"]
-    for letter in Motorbike.seri:
+    for letter in Motorbike.SERI:
         assert letter not in plate[-5:]
 
 
