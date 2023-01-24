@@ -1,0 +1,8 @@
+Used libraries:
+- re
+- datetime
+- sys
+- random
+- tabulate
+- keyboard
+- pytest
