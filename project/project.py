@@ -92,7 +92,7 @@ class Motorbike(Vehicle):
 
 
 def main():
-    print("_" * 22, "Welcome", "_" * 22, sep="")
+    print("_" * 22, "Welcome to Vplate", "_" * 22, sep="")
     print("This is the Vehicle program in which you can know the price and check/generate the license plate!")
     print("Enter esc in any question to escape the program!")
     print("Please note that (**) indicates that the field is required!")
