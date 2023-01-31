@@ -188,7 +188,7 @@ Number: """).strip()
             keyboard.wait("space")
         
         elif feat == '1':
-            print("_" * 50, "\n*Examples for accepted input: 29A-21321 or 29A 21321.", 
+            print("_" * 50, "\n*Examples for accepted input: 29A1-21321 or 29A1 21321.", 
             "- Note 1: The seri (the letter) is AA (or AB) for motorbike having engine's volume fewer than 50 cm^3.",
             "- Note 2: The first two number range from 10 to 99.", "_" * 50,
             sep="\n")
@@ -199,10 +199,6 @@ Number: """).strip()
                     print("\n____This is a valid plate!____")
                     print("Press Space to continue!")
                     keyboard.wait("space")
-            except IndexError:
-                print("\nPlease also enter the desired license plate!")
-                print("Press Space to continue!")
-                keyboard.wait("space")
             except ValueError:
                 print("\n____This is an invalid plate!____\n*Please check your city number and SERI!\n")
                 print("Press Space to continue!")
@@ -243,37 +239,45 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
     # Format XXY-ZZZZZ where XX is a number from 11 to 99, Y is a letter (or AA/AB)
     if index == "0":  # Randomize the plate number
         nums = str(rd.randint(0, 99999))
+        if (type(vehicle) is Motorbike) and (vehicle.checked()):
+            additional_seri = rd.randint(1,9)
+        else:
+            additional_seri = ""
         plate_nums = '0' * (5 - len(nums)) + nums
         if (type(vehicle) is Motorbike) and (not vehicle.checked()):
             seri = rd.choice(["AA", "AB"])
         else:
             seri = rd.choice(Vehicle.SERI)
         city_num = rd.choice(Vehicle.CITIES[vehicle.city])
-        return f"{city_num}{seri}-{plate_nums}"
+        return f"{city_num}{seri}{additional_seri}-{plate_nums}"
     
-    if index == "1":  # Check the wanted plate
-        if regis_plate := re.search(r"(^[1-9][0-9])([a-z][ab]?)(?:-| )[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
+    elif index == "1":  # Check the wanted plate
+        if regis_plate := re.search(r"(^[1-9][0-9])([a-z](?:[1-9]|[ab])?)(?:-| )[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
             if regis_plate.group(1) == "10":
-                raise ValueError("Not a valid starting number!")
+                raise ValueError("Not a valid city number!")
             if regis_plate.group(1) not in Vehicle.CITIES[vehicle.city]:  # Valid number corresponding to the city
                 raise ValueError("Not a valid city!")
-            # Only motorbike with the engine's volume less than 50 would have the SERI of AA or AB
             # Check for motorbike
             if type(vehicle) is Motorbike:
-                if regis_plate.group(2).upper() in ["AA", "AB"] and vehicle.checked():
+                # Check for other motorbikes
+                if len(regis_plate.group(2)) != 2:
                     raise ValueError("Not a valid seri!")
-                if regis_plate.group(2).upper() not in ["AA", "AB"] and (not vehicle.checked()):
+                # Check for motorbikes with 50 cm^3 engine's volume
+                elif vehicle.checked() and regis_plate.group(2).upper() in ["AA", "AB"]:
+                    raise ValueError("Not a valid seri!")
+                elif regis_plate.group(2) in ["AA", "AB"] and (not vehicle.checked()):
                     raise ValueError("Not a valid seri!")
                 else:
                     return True
             # Check for car
             else:
-                if regis_plate.group(2).upper() in ["AA", "AB"] and type(vehicle) is Car:
+                if len(regis_plate.group(2)) != 1 and type(vehicle) is Car:
                     raise ValueError("Not a valid seri!")
                 else:
                     return True
         else:
             raise ValueError("Not a valid plate!")
+    
     else:
         print("Please enter 0 or 1!")
         return False

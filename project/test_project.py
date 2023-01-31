@@ -34,17 +34,21 @@ def test_plate_gen_or_check():
     m = Motorbike(125, 600, city="Hanoi")
     m1 = Motorbike(50, 600, city="Hanoi")
     cr = Car(800, 10000, city="Hanoi")
-    assert plate_gen_or_check("1", m, "30M-12344") is True
+    assert plate_gen_or_check("1", m, "30M2-12344") is True
     assert plate_gen_or_check("1", m1, "30AA-12344") is True
-    assert plate_gen_or_check("1", m, "30M 12344") is True
+    assert plate_gen_or_check("1", m, "30M3 12344") is True
     with pt.raises(ValueError):
         plate_gen_or_check("1", m, "30AB-21321")
-        plate_gen_or_check("1", m, "36A-25341")
-        plate_gen_or_check("1", m, "21Q 321033")
-        plate_gen_or_check("1", m, "10A-21301")
+        plate_gen_or_check("1", m, "36A1-25341")
+        plate_gen_or_check("1", m, "21Q3 321033")
+        plate_gen_or_check("1", m, "10A7-21301")
         plate_gen_or_check("1", cr, "32AB 21903")
+        plate_gen_or_check("1", m, "32A-25341")
     # Check mode 0
     plate = plate_gen_or_check("0", m1)
+    plate2 = plate_gen_or_check("1", m)
+    assert plate2[2] in Car.SERI
+    assert int(plate2[3]) in [1, 2, 3, 4, 5, 6, 7, 8, 9]
     assert "-" in plate
     assert plate[:2] in Motorbike.CITIES["Hanoi"]
     assert plate[2:4] in ["AA", "AB"]
