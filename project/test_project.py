@@ -46,9 +46,9 @@ def test_plate_gen_or_check():
         plate_gen_or_check("1", m, "32A-25341")
     # Check mode 0
     plate = plate_gen_or_check("0", m1)
-    plate2 = plate_gen_or_check("1", m)
+    plate2 = plate_gen_or_check("0", m)
     assert plate2[2] in Car.SERI
-    assert int(plate2[3]) in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert plate2[3] in ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     assert "-" in plate
     assert plate[:2] in Motorbike.CITIES["Hanoi"]
     assert plate[2:4] in ["AA", "AB"]

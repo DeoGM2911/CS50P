@@ -265,7 +265,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
                 # Check for motorbikes with 50 cm^3 engine's volume
                 elif vehicle.checked() and regis_plate.group(2).upper() in ["AA", "AB"]:
                     raise ValueError("Not a valid seri!")
-                elif regis_plate.group(2) in ["AA", "AB"] and (not vehicle.checked()):
+                elif regis_plate.group(2) not in ["AA", "AB"] and (not vehicle.checked()):
                     raise ValueError("Not a valid seri!")
                 else:
                     return True
