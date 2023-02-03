@@ -30,7 +30,7 @@ class Vehicle:
         self.price = price  # tax-not-included price in USD
         self.city = city
     
-    def __str__(self):
+    def __str__(self) -> str:
         attrs = [["Engine's volume", f"{self.cyl_capacity:.2f} cm^3"], ["Price", f"${self.price:.2f}"]]
         return f"""
 ________________The vehicle's attributes_______________
@@ -208,7 +208,7 @@ Number: """).strip()
             print("Press Space to continue!")
             keyboard.wait("space")
 
-def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
+def plate_gen_or_check(index, vehicle, plate="29AA-51935") -> str|bool:
     """Return a license plate or check whether a license plate is valid
 
     Args:
@@ -270,7 +270,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935"):
         return False
 
 
-def check_age(dob: str):
+def check_age(dob: str) -> bool:
     """Validate the age of the user
     Args:
         dob (str): the date of birth. Accepted format: DD/MM/YYYY or DD-MM-YYYY
@@ -291,7 +291,7 @@ def check_age(dob: str):
     return (today - day).days <= 18 * 365  # Less than 18 year old
 
 
-def regis_fee(vehicle: Car|Motorbike):
+def regis_fee(vehicle: Car|Motorbike) -> str:
     """Get the price (include components) of the vehicle
     
     Args:
