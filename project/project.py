@@ -71,21 +71,8 @@ class Car(Vehicle):
     TAX_PLATE_REGIS = {"Hanoi": 853.33, "Ho Chi Minh City": 469.33}  # other cities/provinces correspond to $42.67
     TAX_REGIS_PER = {"Hanoi": 0.12, "Danang": 0.12, "Haiphong": 0.12, "Ho Chi Minh City": 0.1, "Cantho": 0.1}
     # the VAT tax is 10% for all products
-    
-    def __init__(self, cyl_capacity: float|int, price: float|int, city: str="Hanoi"):
-        super().__init__(cyl_capacity, price, city)
-    
-    def __str__(self):
-        return super().__str__()
-
 
 class Motorbike(Vehicle):
-    def __init__(self, cyl_capacity: float|int, price: float|int, city: str="Hanoi") -> None:
-        super().__init__(cyl_capacity, price, city)
-    
-    def __str__(self):
-        return super().__str__()
-    
     def checked(self):
         return self.cyl_capacity > 50
     

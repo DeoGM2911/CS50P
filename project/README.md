@@ -28,7 +28,7 @@
   - The **original price** (tax not inlcuded) in USD (of type float)
 - Each of the mentioned above attributes has a *getter* and *setter* to check for valid argument.
 
-##### **The initialization of Vehicle, Car, and Motorbike:*
+##### **The initialization of Vehicle:*
 
 ``` Python
 def __init__(self, cyl_capacity: float|int, price: float|int, city: str="Hanoi") -> None:
