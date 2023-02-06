@@ -75,7 +75,6 @@ class Car(Vehicle):
 class Motorbike(Vehicle):
     def checked(self):
         return self.cyl_capacity > 50
-    
 
 
 def main():
