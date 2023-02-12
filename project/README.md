@@ -1,6 +1,6 @@
 # **Vplate**
 
-## 1. **Video Demo**:  <URL HERE>
+## 1. **Video Demo**:  <https://youtu.be/6HVlKVG2iNo>
 
 ### 2. **Description**
 
