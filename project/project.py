@@ -10,56 +10,56 @@ class Vehicle:
     # list of provinces and CITIES in Vietnam
     CITIES = {
         "An Giang": ['67'], "Ba Ria-Vung Tau": ['72'], "Bac Lieu": ['94'], "Bac Giang": ['98'], "Bac Kan": ['97'],
-        "Bac Ninh": ['99'], "Ben Tre": ['71'], "Binh Duong": ['61'], "Binh Dinh": ['77'], "Binh Phuoc": ['93'], 
-        "Binh Thuan": ['86'], "Ca Mau": ['69'],"Cao Bang": ['11'], "Can Tho": ['65'], "Da Nang": ['43'], "Dak Lak": ['47'], 
+        "Bac Ninh": ['99'], "Ben Tre": ['71'], "Binh Duong": ['61'], "Binh Dinh": ['77'], "Binh Phuoc": ['93'],
+        "Binh Thuan": ['86'], "Ca Mau": ['69'],"Cao Bang": ['11'], "Can Tho": ['65'], "Da Nang": ['43'], "Dak Lak": ['47'],
         "Dak Nong": ['48'], "Dien Bien": ['27'], "Dong Nai": ['39', '60'], "Dong Thap": ['66'], "Gia Lai": ['81'], "Ha Giang": ['23'],
         "Hanoi": ['29', '30', '31', '32', '33', '40'], "Ha Tinh": ['38'],"Hai Duong": ['34'], "Hai Phong": ['15', '16'],
         "Hoa Binh": ['28'], "Hung Yen": ['89'], "Khanh Hoa": ['79'], "Kien Giang": ['68'], "Kon Tum": ['82'], "Lai Chau": ['25'],
         "Lang Son": ['12'], "Lao Cai": ['24'], "Lam Dong": ['49'], "Long An": ['62'], "Nam Dinh": ['18'], "Nghe An": ['37'],
-        "Ninh Binh": ['35'], "Ninh Thuan": ['85'], "Phu Tho": ['19'], "Phu Yen": ['78'], "Quang Binh": ['73'], "Quang Nam": ['92'], 
-        "Quang Ngai": ['76'], "Quang Ninh": ['14'], "Quang Tri": ['74'], "Soc Trang": ['83'], "Son La": ['26'], "Tay Ninh": ['70'], 
+        "Ninh Binh": ['35'], "Ninh Thuan": ['85'], "Phu Tho": ['19'], "Phu Yen": ['78'], "Quang Binh": ['73'], "Quang Nam": ['92'],
+        "Quang Ngai": ['76'], "Quang Ninh": ['14'], "Quang Tri": ['74'], "Soc Trang": ['83'], "Son La": ['26'], "Tay Ninh": ['70'],
         "Thai Binh": ['17'], "Thai Nguyen": ['20'], "Thanh Hoa": ['36'], "Ha Nam": ['90'], "Hau Giang": ['95'],
         "Ho Chi Minh City": ['41', '50', '51', '52' ,'53', '54', '55', '56', '57', '58', '59'], "Thua Thien Hue": ['75'],
         "Tien Giang": ['63'], "Tra Vinh": ['84'], "Tuyen Quang": ['22'], "Vinh Long": ['64'], "Vinh Phuc": ['88'], "Yen Bai": ['21']
     }
-    
+
     SERI = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z']
-    
+
     def __init__(self, cyl_capacity: float|int, price: float|int, city: str="Hanoi") -> None:
         self.cyl_capacity = cyl_capacity  # the vehicle's engine's capacity in cm^3
         self.price = price  # tax-not-included price in USD
         self.city = city
-    
+
     def __str__(self) -> str:
         attrs = [["Engine's volume", f"{self.cyl_capacity:.2f} cm^3"], ["Price", f"${self.price:.2f}"]]
         return f"""
 ________________The vehicle's attributes_______________
 {tabulate(attrs, headers=["Attribute", "Value"], tablefmt="grid", numalign="center")}""".strip()
-    
+
     @property
     def cyl_capacity(self):
         return self._cyl_capacity
-    
+
     @cyl_capacity.setter
     def cyl_capacity(self, cyl_capacity):
         if float(cyl_capacity) < 0:
             raise ValueError("Not a valid number!")
         self._cyl_capacity = cyl_capacity
-    
+
     @property
     def price(self):
         return self._price
-    
+
     @price.setter
     def price(self, price):
         if float(price) < 0:
             raise ValueError("Not a valid number!")
         self._price = price
-    
+
     @property
     def city(self):
         return self._city
-    
+
     @city.setter
     def city(self, city):
         if city not in Vehicle.CITIES.keys():
@@ -85,11 +85,11 @@ def main():
     print("Press Space to continue!")
     print("_" * 51)
     keyboard.wait("space")
-    
+
 	# Get the user's name
     if (name := input("(**) Name:").strip()).lower() == "esc":
         sys.exit("Successfully exit the program.")
-    
+
     # Check the age condition of the user
     while True:
         try:
@@ -102,7 +102,7 @@ def main():
                 break
         except ValueError:
             print("Invalid DOB! Please try again!\n")
-    
+
     # Get the user's city where he/she buys the vehicle
     while True:
         if (city := input("(**) Your city: ").strip().capitalize()) not in Vehicle.CITIES:
@@ -112,18 +112,18 @@ def main():
             sys.exit("Successfully exit the program.")
         else:
             break
-    
+
     # Get the attributes of the vehicle
     while True:
         print('Please enter "car" or "motorbike" and it is case-insensitive.')
         if (_vehicle := input("(**) Vehicle's type: ").lower()) == "esc":
                 sys.exit("Successfully exit the program.")
-    
+
         if _vehicle == "car" or _vehicle == "motorbike":
             break
         else:
             print("Invalid type of vehicle! Please enter car or motorbike!\n")
-    
+
     while True:
         try:
             if (cyl_vol := input("(**) Vehicle's engine volume (in cm^3): ").lower()) == "esc":
@@ -134,7 +134,7 @@ def main():
             break
         except ValueError:
             print("\n*Please check your vehicle's engine's volume!\n")
-    
+
     while True:
         try:
             if (prc := input("(**) The vehicle's price (tax not included) (in USD): ").lower()) == "esc":
@@ -145,12 +145,12 @@ def main():
             break
         except ValueError:
             print("\n*Please check your vehicle's price!\n")
-    
+
     if _vehicle == "car":
         vehicle = Car(cyl_volume, price, city)
     elif _vehicle == "motorbike":
         vehicle = Motorbike(cyl_volume, price, city)
-    
+
     # Prompt the user for the feature they wish to use
     while True:
         feat = input("""
@@ -163,18 +163,18 @@ def main():
 (4): Exit the program.
 ***********************************************************
 Number: """).strip()
-        
+
         if feat == "4":
             sys.exit("\n" + "_" * 15 + "Thank you for using the product!" + "_" * 15)
-        
+
         elif feat == '0':
             print("\nPLease wait! Generating license plate.....")
             print("Your license plate is: ", plate_gen_or_check(feat, vehicle), sep="")
             print("Press Space to continue!")
             keyboard.wait("space")
-        
+
         elif feat == '1':
-            print("_" * 50, "\n*Examples for accepted input: 29A1-21321 or 29A1 21321.", 
+            print("_" * 50, "\n*Examples for accepted input: 29A1-21321 or 29A1 21321.",
             "- Note 1: The seri (the letter) is AA (or AB) for motorbike having engine's volume fewer than 50 cm^3.",
             "- Note 2: The first two number range from 10 to 99.", "_" * 50,
             sep="\n")
@@ -189,19 +189,19 @@ Number: """).strip()
                 print("\n____This is an invalid plate!____\n*Please check your city number and SERI!\n")
                 print("Press Space to continue!")
                 keyboard.wait("space")
-        
+
         elif feat == "2":
             print("\n", "_" * 25, "Price", "_" * 25, sep="")
             print(regis_fee(vehicle))
             print("Press Space to continue!")
             keyboard.wait("space")
-        
+
         elif feat == "3":
             print("\n", "_" * 20, "Details", "_" * 20, sep="")
             print(f"- User: {name}\n- Date of birth: {dob}\n- Type of vehicle: {_vehicle.capitalize()}\n\n{vehicle}")
             print("Press Space to continue!")
             keyboard.wait("space")
-            
+
         else:
             print("*Please enter a number!\n")
             print("Press Space to continue!")
@@ -236,7 +236,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935") -> str|bool:
             seri = rd.choice(Vehicle.SERI)
         city_num = rd.choice(Vehicle.CITIES[vehicle.city])
         return f"{city_num}{seri}{additional_seri}-{plate_nums}"
-    
+
     elif index == "1":  # Check the wanted plate
         if regis_plate := re.search(r"(^[1-9][0-9])([a-z](?:[1-9]|[ab])?)(?:-| )[0-9]{5}$", plate.strip(), flags=re.IGNORECASE):
             if regis_plate.group(1) == "10":
@@ -263,7 +263,7 @@ def plate_gen_or_check(index, vehicle, plate="29AA-51935") -> str|bool:
                     return True
         else:
             raise ValueError("Not a valid plate!")
-    
+
     else:
         print("Please enter 0 or 1!")
         return False
@@ -284,9 +284,9 @@ def check_age(dob: str) -> bool:
                 raise ValueError("Not a valid DOB!")
         except ValueError:
             raise ValueError("Not a valid DOB!")
-    else: 
+    else:
         raise ValueError("Not a valid DOB!")
-    
+
     return (today - day).days <= 18 * 365  # Less than 18 year old
 
 
@@ -309,7 +309,7 @@ def regis_fee(vehicle: Car|Motorbike) -> str:
             plate_fee = Car.TAX_PLATE_REGIS[vehicle.city]
         else:
             plate_fee = 42.67
-        
+
         # Get the total price
         if vehicle.city not in Car.TAX_REGIS_PER.keys():
             tot = f"{vehicle.price * 1.1 + {plate_fee}:.2f}"
@@ -317,7 +317,7 @@ def regis_fee(vehicle: Car|Motorbike) -> str:
             tot = f"{vehicle.price * (1.1 + Car.TAX_REGIS_PER[vehicle.city]) + {plate_fee}:.2f}"
         elif vehicle.city == "Hanoi" or vehicle.city == "Ho Chi Minh City":
             tot = f"{vehicle.price * (1.1 + Car.TAX_REGIS_PER[vehicle.city]) + Car.TAX_PLATE_REGIS[vehicle.city]:.2f}"
-    
+
     if type(vehicle) is Motorbike:
         # Get the components
         if vehicle.price < 639.66:
@@ -327,7 +327,7 @@ def regis_fee(vehicle: Car|Motorbike) -> str:
         else:
             plate_fee = 127.93
         veh_regis_fee = 0
-        
+
         # Get the total price
         if float(vehicle.price) < 639.66:
             tot = f"{vehicle.price * 1.1 + 31.98:.2f}"
@@ -335,7 +335,7 @@ def regis_fee(vehicle: Car|Motorbike) -> str:
             tot = f"{vehicle.price * 1.1 + 63.97:.2f}"
         else:
             tot = f"{vehicle.price * 1.1 + 127.93:.2f}"
-    
+
     table = [["Original price", f"${vehicle.price:.2f}"], ["VAT Tax (10%)", f"${vehicle.price * 0.1:.2f}"],
             [f"Registrating fee ({veh_regis_fee:.1%})", f"${vehicle.price * veh_regis_fee:.2f}"],
             ["Plate registration fee", f"${plate_fee:.2f}"], ["Total", f"${tot}"]]
